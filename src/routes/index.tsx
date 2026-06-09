@@ -21,7 +21,7 @@ import realInterior from "@/assets/real/maruxa-interior.jpg";
 import realMejillones from "@/assets/real/maruxa-mejillones.jpg";
 import realPulpo from "@/assets/real/maruxa-pulpo.jpg";
 import realZamburinas from "@/assets/real/maruxa-zamburinas.jpg";
-import brandLogo from "@/assets/brand/maruxa-logo-lockup.jpg";
+import brandLogo from "@/assets/brand/maruxa-logo.jpg";
 import { BranchDivider } from "@/components/maruxa/BranchDivider";
 
 const NAME = "Tapería Maruxa";
@@ -947,8 +947,11 @@ function Footer() {
 }
 
 function BrandLogo({ placement = "header" }: { placement?: "header" | "footer" }) {
-  const size = placement === "footer" ? "h-28 w-64" : "h-11 w-32 sm:h-12 sm:w-36";
-  const frame = placement === "footer" ? "border-cream/15 shadow-none" : "border-ink/10 shadow-sm";
+  const size = placement === "footer" ? "h-20 w-20" : "h-12 w-12 sm:h-14 sm:w-14";
+  const frame =
+    placement === "footer"
+      ? "border-cream/20 shadow-[0_10px_30px_rgba(0,0,0,0.25)]"
+      : "border-ink/10 shadow-sm";
 
   return (
     <img
@@ -956,7 +959,7 @@ function BrandLogo({ placement = "header" }: { placement?: "header" | "footer" }
       alt={NAME}
       width={960}
       height={960}
-      className={`${size} shrink-0 rounded-lg border bg-[color:var(--peach)] object-contain object-center ${frame}`}
+      className={`${size} shrink-0 rounded-full border bg-[color:var(--peach)] object-cover object-center ${frame}`}
     />
   );
 }
