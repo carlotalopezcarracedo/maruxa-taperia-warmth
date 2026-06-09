@@ -38,37 +38,213 @@ const PRICE_RANGE = "10 - 20 €";
 const RATING = 4.5;
 const REVIEWS = 312;
 
-const REAL_PHOTOS = [
+type MenuItemData = {
+  name: string;
+  price: string;
+  description?: string;
+  allergens?: string[];
+};
+
+type MenuSectionData = {
+  title: string;
+  items: MenuItemData[];
+};
+
+const MENU_SECTIONS: MenuSectionData[] = [
   {
-    src: realInterior,
-    alt: "Comedor real de Tapería Maruxa con papel vegetal y luz cálida",
-    label: "Comedor",
+    title: "Tapas",
+    items: [
+      { name: "Tortilla", price: "12 €", allergens: ["Huevos"] },
+      {
+        name: "Croquetas",
+        price: "12 €",
+        description:
+          "Cochinillo con manzana, pollo, atún con piquillos y jamón ibérico. 8 unidades, ponemos 2 de cada sabor.",
+        allergens: ["Huevos", "Gluten", "Lácteos"],
+      },
+      {
+        name: "Crujientes de pollo",
+        price: "11 €",
+        description: "Con 3 salsas.",
+        allergens: ["Huevos", "Gluten"],
+      },
+      { name: "Patatas 3 salsas", price: "6 €" },
+      {
+        name: "3 mini hamburguesas",
+        price: "7,5 €",
+        description: "Lechuga, queso y tomate.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+      { name: "Zorza", price: "11 €" },
+      {
+        name: "Huevos rotos con jamón ibérico",
+        price: "10 €",
+        allergens: ["Huevos"],
+      },
+      { name: "Pimientos de Padrón", price: "7,5 €", description: "Temporada." },
+    ],
   },
   {
-    src: realBarra,
-    alt: "Detalle de la barra de Tapería Maruxa con flores y lámparas",
-    label: "Barra",
+    title: "Mar",
+    items: [
+      {
+        name: "Langostinos crujientes",
+        price: "12 €",
+        description: "Con salsas.",
+        allergens: ["Crustáceos", "Huevos", "Gluten"],
+      },
+      {
+        name: "Revuelto de gambas y champiñones",
+        price: "9 €",
+        allergens: ["Crustáceos", "Huevos"],
+      },
+      { name: "Calamares", price: "12 €", allergens: ["Moluscos", "Gluten"] },
+      { name: "Pulpo á feira", price: "20 €", allergens: ["Moluscos"] },
+      {
+        name: "Chipirones encebollados",
+        price: "15 €",
+        description: "Con patatas.",
+        allergens: ["Moluscos"],
+      },
+      {
+        name: "Mejillones",
+        price: "10 €",
+        description: "Vapor o vinagreta.",
+        allergens: ["Moluscos"],
+      },
+      {
+        name: "Vieiras del Pacífico",
+        price: "20 €",
+        description: '"Zamburiñas".',
+        allergens: ["Moluscos"],
+      },
+      {
+        name: "Chocos a la plancha",
+        price: "14 €",
+        description: "Con patatas.",
+        allergens: ["Moluscos"],
+      },
+    ],
   },
   {
-    src: realZamburinas,
-    alt: "Zamburiñas a la plancha de Tapería Maruxa",
-    label: "Zamburiñas",
+    title: "Ensaladas",
+    items: [
+      {
+        name: "Simple",
+        price: "5 €",
+        description: "Lechuga, tomate y cebolla.",
+      },
+      {
+        name: "Maruxa",
+        price: "9 €",
+        description:
+          "Lechuga, tomate, cebolla, brotes de soja, zanahoria, queso, nueces, uvas pasas sultanas, crema de vinagre de Módena y AOVE.",
+        allergens: ["Soja", "Lácteos", "Frutos secos"],
+      },
+      {
+        name: "Ventresca",
+        price: "10 €",
+        description: "Tomate, queso feta, ventresca de atún, nueces, orégano y AOVE.",
+        allergens: ["Pescados", "Lácteos", "Frutos secos"],
+      },
+    ],
   },
   {
-    src: realPulpo,
-    alt: "Pulpo con pimentón servido en Tapería Maruxa",
-    label: "Pulpo",
+    title: "Pizzas",
+    items: [
+      {
+        name: "Serrana",
+        price: "10 €",
+        description: "Masa fresca, tomate, orégano, queso, jamón serrano y AOVE.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+      {
+        name: "Maruxa",
+        price: "10 €",
+        description:
+          "Masa fresca, tomate, orégano, queso, pechuga de pavo, champiñones y pimientos asados.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+      {
+        name: "Campera",
+        price: "10 €",
+        description: "Masa fresca, tomate, orégano, queso, atún, huevo cocido y tomates cherry.",
+        allergens: ["Gluten", "Lácteos", "Huevos", "Pescados"],
+      },
+      {
+        name: "Vegetariana",
+        price: "10 €",
+        description:
+          "Masa fresca, tomate, orégano, queso, cebolla, champiñones, pimientos y tomates cherry.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+    ],
   },
   {
-    src: realMejillones,
-    alt: "Mejillones preparados en Tapería Maruxa",
-    label: "Producto",
+    title: "Postres",
+    items: [
+      {
+        name: "Coulant de chocolate",
+        price: "5 €",
+        description: "Con helado de vainilla.",
+        allergens: ["Gluten", "Lácteos", "Huevos"],
+      },
+      {
+        name: "Tarta de la abuela",
+        price: "5 €",
+        description: "Con chocolate Nestlé.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+      {
+        name: "Tarta de queso fría",
+        price: "5 €",
+        description: "Con mermelada de fresa.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+      { name: "Tarta de piña", price: "5 €", allergens: ["Gluten", "Lácteos", "Huevos"] },
+      {
+        name: "Tarta de Nutella y Kinder",
+        price: "5 €",
+        description: "Con helado.",
+        allergens: ["Gluten", "Lácteos", "Frutos secos"],
+      },
+      { name: "Arroz con leche", price: "4 €", allergens: ["Lácteos"] },
+      {
+        name: "Flan de huevo",
+        price: "3 €",
+        description: "Con nata.",
+        allergens: ["Huevos", "Lácteos"],
+      },
+      {
+        name: "Tarta de plátano",
+        price: "5 €",
+        description: "Con dulce de leche y nata.",
+        allergens: ["Gluten", "Lácteos"],
+      },
+      {
+        name: "Flan de queso",
+        price: "4 €",
+        description: "Con base de galleta.",
+        allergens: ["Gluten", "Lácteos", "Huevos"],
+      },
+    ],
   },
-  {
-    src: realComedor,
-    alt: "Vista amplia del comedor de Tapería Maruxa",
-    label: "Ambiente",
-  },
+];
+
+const ALLERGENS = [
+  "Huevos",
+  "Gluten",
+  "Lácteos",
+  "Crustáceos",
+  "Moluscos",
+  "Pescados",
+  "Soja",
+  "Frutos secos",
+];
+
+const MENU_EXTRAS = [
+  { name: "Ración de pan", price: "2 €" },
+  { name: "Extra con huevo", price: "2,5 €" },
 ];
 
 export const Route = createFileRoute("/")({
@@ -399,27 +575,58 @@ function Feature({ icon, label }: { icon: ReactNode; label: string }) {
 }
 
 function PhotoRail() {
-  const rail = [...REAL_PHOTOS, ...REAL_PHOTOS];
-
   return (
-    <section className="overflow-hidden border-y border-ink/10 bg-cream py-5">
-      <div className="flex w-max animate-photo-rail gap-4 px-4">
-        {rail.map((photo, i) => (
-          <figure
-            key={`${photo.label}-${i}`}
-            className="group relative h-56 w-72 shrink-0 overflow-hidden rounded-lg bg-muted shadow-sm sm:h-64 sm:w-96"
-          >
+    <section className="border-y border-ink/10 bg-background py-12 paper-grain sm:py-14">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 sm:px-6 lg:grid-cols-[0.36fr_0.64fr] lg:items-center lg:px-8">
+        <div className="max-w-md">
+          <p className="font-script text-2xl text-terracotta">antes de la carta</p>
+          <BranchDivider className="mt-3 text-ink" />
+          <h2 className="mt-5 font-display text-4xl leading-tight text-ink md:text-5xl">
+            Mesa, barra y producto
+          </h2>
+          <p className="mt-4 leading-7 text-ink/68">
+            Una pausa visual antes de elegir: comedor cálido, barra viva y platos para compartir.
+          </p>
+        </div>
+
+        <div className="grid gap-3 sm:grid-cols-5 sm:grid-rows-[170px_170px] lg:grid-rows-[190px_190px]">
+          <figure className="group relative min-h-72 overflow-hidden rounded-lg bg-muted shadow-xl sm:col-span-3 sm:row-span-2 sm:h-full sm:min-h-0">
             <img
-              src={photo.src}
-              alt={photo.alt}
+              src={realComedor}
+              alt="Comedor real de Tapería Maruxa"
               loading="lazy"
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <figcaption className="absolute inset-x-3 bottom-3 rounded-full bg-ink/72 px-4 py-2 text-center text-xs uppercase text-cream backdrop-blur">
-              {photo.label}
-            </figcaption>
           </figure>
-        ))}
+
+          <figure className="group relative min-h-52 overflow-hidden rounded-lg bg-muted shadow-lg sm:col-span-2 sm:h-full sm:min-h-0">
+            <img
+              src={realBarra}
+              alt="Detalle de la barra de Tapería Maruxa"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+          </figure>
+
+          <div className="grid gap-3 sm:col-span-2 sm:grid-cols-2">
+            <figure className="group relative min-h-48 overflow-hidden rounded-lg bg-muted shadow-lg sm:h-full sm:min-h-0">
+              <img
+                src={realZamburinas}
+                alt="Zamburiñas a la plancha de Tapería Maruxa"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </figure>
+            <figure className="group relative min-h-48 overflow-hidden rounded-lg bg-muted shadow-lg sm:h-full sm:min-h-0">
+              <img
+                src={realPulpo}
+                alt="Pulpo con pimentón servido en Tapería Maruxa"
+                loading="lazy"
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </figure>
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -457,7 +664,7 @@ function Story() {
     <section id="sobre" className="scroll-mt-20 bg-background py-20 paper-grain md:py-28">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-16 lg:px-8">
         <figure className="order-1 lg:order-2">
-          <div className="aspect-[4/5] overflow-hidden rounded-lg shadow-2xl">
+          <div className="aspect-[4/3] overflow-hidden rounded-lg shadow-2xl lg:aspect-[5/4]">
             <img
               src={realInterior}
               alt="Comedor real de Tapería Maruxa en Nigrán"
@@ -507,42 +714,9 @@ function Story() {
 }
 
 function Carta() {
-  const categories = [
-    {
-      name: "Tapas",
-      desc: "Pequeños bocados para abrir boca y conversación.",
-      price: "desde 3 €",
-    },
-    {
-      name: "Raciones",
-      desc: "Para compartir mesa, sin pelearse demasiado.",
-      price: "desde 9 €",
-    },
-    {
-      name: "Platos de temporada",
-      desc: "Lo que el mercado y la temporada nos regalan.",
-      price: "consultar",
-    },
-    {
-      name: "Postres",
-      desc: "Casero, dulce y reconfortante. Final feliz.",
-      price: "desde 4 €",
-    },
-    {
-      name: "Bebidas",
-      desc: "Vinos gallegos, cervezas y referencias para acompañar.",
-      price: "carta amplia",
-    },
-    {
-      name: "Menús grupo",
-      desc: "Para celebraciones en nuestro comedor privado.",
-      price: "a consultar",
-    },
-  ];
-
   return (
     <section id="carta" className="scroll-mt-20 bg-[color:var(--peach)] py-20 md:py-28">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <p className="font-script text-2xl text-terracotta-deep">la carta</p>
           <BranchDivider className="mx-auto mt-3 text-ink" />
@@ -550,34 +724,54 @@ function Carta() {
             Nuestra carta
           </h2>
           <p className="mx-auto mt-6 leading-7 text-ink/75">
-            Una propuesta corta, honesta y pensada para compartir. Cambia con el producto y la
-            temporada.
+            La carta real de Maruxa, con tapas, mar, ensaladas, pizzas y postres para compartir en
+            mesa.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {categories.map((c, i) => (
-            <article
-              key={c.name}
-              className="group rounded-lg border border-ink/10 bg-cream p-6 transition-all hover:-translate-y-1 hover:border-terracotta"
-            >
-              <div className="flex items-start justify-between gap-4">
-                <span className="font-script text-2xl text-terracotta">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <span className="shrink-0 rounded-full bg-[color:var(--olive-soft)] px-3 py-1 text-xs uppercase text-ink">
-                  {c.price}
-                </span>
-              </div>
-              <h3 className="mt-4 font-display text-3xl uppercase text-ink">{c.name}</h3>
-              <div className="mt-3 h-px w-12 bg-terracotta" />
-              <p className="mt-4 min-h-14 leading-7 text-ink/70">{c.desc}</p>
-              <div className="mt-6 inline-flex items-center gap-2 text-sm uppercase text-terracotta">
-                Ver detalle
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </div>
-            </article>
+        <div className="mt-12 grid gap-5 lg:grid-cols-2">
+          {MENU_SECTIONS.map((section, i) => (
+            <MenuSection key={section.title} section={section} index={i} />
           ))}
+        </div>
+
+        <div className="mt-6 grid gap-4 lg:grid-cols-[0.42fr_0.58fr]">
+          <div className="rounded-lg border border-ink/10 bg-cream/88 p-5 shadow-sm md:p-6">
+            <p className="font-script text-2xl text-terracotta">extras</p>
+            <div className="mt-3 divide-y divide-ink/10">
+              {MENU_EXTRAS.map((extra) => (
+                <div key={extra.name} className="flex items-center justify-between gap-4 py-3">
+                  <span className="font-display text-xl uppercase text-ink">{extra.name}</span>
+                  <span className="shrink-0 rounded-lg bg-ink px-2.5 py-1 font-display text-sm leading-none text-cream">
+                    {extra.price}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-4 rounded-lg border border-ink/10 bg-cream/88 p-5 shadow-sm md:grid-cols-[0.78fr_1.22fr] md:p-6">
+            <div>
+              <p className="font-script text-2xl text-terracotta">alérgenos</p>
+              <h3 className="mt-1 font-display text-2xl uppercase text-ink">Consulta en sala</h3>
+            </div>
+            <div>
+              <div className="flex flex-wrap gap-2">
+                {ALLERGENS.map((allergen) => (
+                  <span
+                    key={allergen}
+                    className="rounded-full border border-ink/10 bg-background px-3 py-1 text-xs uppercase text-ink/72"
+                  >
+                    {allergen}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-4 text-sm leading-6 text-ink/62">
+                Para cualquier duda sobre alérgenos, pregunta al personal. Si necesitas un postre
+                sin gluten, avísanos para tener cuidado con los toppings.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
@@ -585,7 +779,7 @@ function Carta() {
             href={PHONE_TEL}
             className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta sm:w-auto"
           >
-            <Phone size={16} /> Consultar carta completa
+            <Phone size={16} /> Llamar para reservar
           </a>
           <a
             href={WHATSAPP}
@@ -598,6 +792,64 @@ function Carta() {
         </div>
       </div>
     </section>
+  );
+}
+
+function MenuSection({ section, index }: { section: MenuSectionData; index: number }) {
+  return (
+    <article
+      className={`rounded-lg border border-ink/10 bg-cream/95 p-5 shadow-sm sm:p-6 ${
+        section.title === "Postres" ? "lg:col-span-2" : ""
+      }`}
+    >
+      <div className="flex items-end justify-between gap-4 border-b border-ink/10 pb-4">
+        <div>
+          <p className="font-script text-2xl text-terracotta">
+            {String(index + 1).padStart(2, "0")}
+          </p>
+          <h3 className="mt-1 font-display text-3xl uppercase leading-none text-ink md:text-4xl">
+            {section.title}
+          </h3>
+        </div>
+        <span className="shrink-0 rounded-full bg-[color:var(--olive-soft)] px-3 py-1 text-xs uppercase text-ink/72">
+          {section.items.length} platos
+        </span>
+      </div>
+
+      <div className={`mt-5 grid gap-x-7 ${section.title === "Postres" ? "md:grid-cols-2" : ""}`}>
+        {section.items.map((item) => (
+          <MenuDish key={`${section.title}-${item.name}`} item={item} />
+        ))}
+      </div>
+    </article>
+  );
+}
+
+function MenuDish({ item }: { item: MenuItemData }) {
+  return (
+    <div className="border-b border-ink/10 py-4 first:pt-0 last:border-b-0">
+      <div className="flex min-w-0 items-start justify-between gap-4">
+        <h4 className="font-display text-xl uppercase leading-tight text-ink">{item.name}</h4>
+        <span className="shrink-0 rounded-lg bg-ink px-2.5 py-1 font-display text-sm leading-none text-cream">
+          {item.price}
+        </span>
+      </div>
+      {item.description && (
+        <p className="mt-1.5 text-sm leading-6 text-ink/65">{item.description}</p>
+      )}
+      {item.allergens && (
+        <div className="mt-2 flex flex-wrap gap-1.5">
+          {item.allergens.map((allergen) => (
+            <span
+              key={allergen}
+              className="rounded-full bg-[color:var(--peach)] px-2 py-0.5 text-[0.68rem] uppercase text-ink/68"
+            >
+              {allergen}
+            </span>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
 
