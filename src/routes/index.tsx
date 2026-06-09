@@ -858,7 +858,6 @@ function Recommendations() {
     { img: realPulpo, name: "Pulpo a feira", note: "Clásico gallego con pimentón y aceite." },
     { img: realZamburinas, name: "Zamburiñas", note: "Plancha, producto y ese punto de costa." },
     { img: realMejillones, name: "Mejillones", note: "Una ración para empezar compartiendo." },
-    { img: realBarra, name: "Barra Maruxa", note: "Detalles del local que hacen ambiente." },
   ];
 
   return (
@@ -878,7 +877,7 @@ function Recommendations() {
           </p>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-6 md:grid-cols-3">
           {items.map((it, i) => (
             <article key={it.name} className="group">
               <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-muted">
@@ -908,84 +907,67 @@ function Gallery() {
   return (
     <section
       id="galeria"
-      className="scroll-mt-20 overflow-hidden bg-[color:var(--cocoa)] py-20 text-cream md:py-28"
+      className="scroll-mt-20 overflow-hidden bg-background py-20 text-ink paper-grain md:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <p className="font-script text-2xl text-[color:var(--peach-deep)]">galería</p>
-          <BranchDivider className="mx-auto mt-3 text-cream" />
-          <h2 className="mt-5 font-display text-4xl leading-tight md:text-6xl">Ambiente Maruxa</h2>
-          <p className="mx-auto mt-6 leading-7 text-cream/72">
-            Un vistazo al local, la terraza, la barra y los platos que salen cada día.
+        <div className="mb-12 grid gap-6 lg:grid-cols-[0.68fr_0.32fr] lg:items-end">
+          <div>
+            <p className="font-script text-2xl text-terracotta">galería</p>
+            <BranchDivider className="mt-3 text-ink" />
+            <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
+              Ambiente Maruxa
+            </h2>
+          </div>
+          <p className="max-w-md leading-7 text-ink/66 lg:justify-self-end">
+            Un comedor cálido, una barra con detalle y rincones pensados para comer sin prisa.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-4 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.88fr)]">
-          <figure className="group relative min-h-[380px] overflow-hidden rounded-lg border border-cream/12 bg-ink/35 shadow-2xl sm:min-h-[540px]">
-            <img
-              src={realComedor}
-              alt="Comedor real de Tapería Maruxa"
-              loading="lazy"
-              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/16 to-transparent" />
-            <figcaption className="absolute inset-x-4 bottom-4 max-w-xl rounded-lg border border-cream/16 bg-ink/62 p-4 backdrop-blur sm:left-5 sm:right-auto sm:bottom-5 sm:p-5">
-              <p className="font-display text-2xl uppercase leading-none text-cream sm:text-3xl">
-                Comedor Maruxa
-              </p>
-              <p className="mt-2 text-sm leading-6 text-cream/76">
+        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
+          <figure>
+            <div className="group aspect-[5/4] overflow-hidden rounded-lg bg-muted shadow-2xl sm:aspect-[16/11] lg:aspect-[4/3]">
+              <img
+                src={realComedor}
+                alt="Comedor real de Tapería Maruxa"
+                loading="lazy"
+                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <figcaption className="mt-4 border-l-4 border-terracotta bg-cream px-4 py-3">
+              <p className="font-display text-xl uppercase text-ink">Comedor</p>
+              <p className="mt-1 text-sm leading-6 text-ink/66">
                 Luz cálida, papel vegetal y mesas listas para venir sin prisa.
               </p>
             </figcaption>
           </figure>
 
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-            <GalleryImage
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
+            <AmbientPhoto
               src={realBarra}
               alt="Detalle de la barra de Tapería Maruxa"
-              label="Barra"
-              note="Flores, lámparas y ese punto de casa que marca el local."
-              className="min-h-[250px] lg:min-h-[262px]"
+              title="Barra"
+              copy="Flores, lámparas y pequeños detalles del día a día."
             />
-            <GalleryImage
-              src={realZamburinas}
-              alt="Zamburiñas de Tapería Maruxa"
-              label="Producto"
-              note="Platos reconocibles, sabrosos y pensados para compartir."
-              className="min-h-[250px] lg:min-h-[262px]"
+            <AmbientPhoto
+              src={realInterior}
+              alt="Rincón del comedor de Tapería Maruxa"
+              title="Rincones"
+              copy="Texturas suaves y tonos cálidos en el interior del local."
             />
           </div>
         </div>
 
-        <div className="mt-4 grid gap-4 sm:grid-cols-3">
-          <GalleryImage
-            src={realPulpo}
-            alt="Pulpo de Tapería Maruxa"
-            label="Pulpo"
-            className="min-h-[235px]"
-          />
-          <GalleryImage
-            src={realInterior}
-            alt="Rincón del comedor de Tapería Maruxa"
-            label="Rincones"
-            className="min-h-[235px]"
-          />
-          <GalleryImage
-            src={realMejillones}
-            alt="Mejillones de Tapería Maruxa"
-            label="Raciones"
-            className="min-h-[235px]"
-          />
-        </div>
-
-        <div className="mt-10 text-center">
+        <div className="mt-10 flex flex-col items-start justify-between gap-5 border-t border-ink/10 pt-6 sm:flex-row sm:items-center">
+          <p className="max-w-xl text-sm leading-6 text-ink/58">
+            Las fotos muestran el local real de Maruxa: comedor, barra y detalles del espacio.
+          </p>
           <a
             href={INSTAGRAM}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm uppercase text-ink transition-colors hover:bg-[color:var(--peach-deep)] sm:w-auto"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta sm:w-auto"
           >
-            <Instagram size={16} /> Síguenos @taperiamaruxa
+            <Instagram size={16} /> Ver Instagram
           </a>
         </div>
       </div>
@@ -993,33 +975,33 @@ function Gallery() {
   );
 }
 
-function GalleryImage({
+function AmbientPhoto({
   src,
   alt,
-  label,
-  note,
-  className = "",
+  title,
+  copy,
 }: {
   src: string;
   alt: string;
-  label: string;
-  note?: string;
-  className?: string;
+  title: string;
+  copy: string;
 }) {
   return (
-    <figure
-      className={`group relative overflow-hidden rounded-lg border border-cream/12 bg-ink/35 shadow-lg ${className}`}
-    >
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-      />
-      <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/8 to-transparent" />
-      <figcaption className="absolute inset-x-3 bottom-3 rounded-lg bg-ink/62 px-3 py-3 backdrop-blur">
-        <p className="font-display text-xl uppercase leading-none text-cream">{label}</p>
-        {note && <p className="mt-1 text-sm leading-5 text-cream/72">{note}</p>}
+    <figure>
+      <div className="group aspect-[4/3] overflow-hidden rounded-lg bg-muted shadow-lg">
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+      </div>
+      <figcaption className="mt-3 flex gap-3 border-t border-ink/10 pt-3">
+        <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-terracotta" />
+        <div>
+          <p className="font-display text-lg uppercase leading-none text-ink">{title}</p>
+          <p className="mt-1 text-sm leading-6 text-ink/62">{copy}</p>
+        </div>
       </figcaption>
     </figure>
   );
