@@ -21,6 +21,7 @@ import realInterior from "@/assets/real/maruxa-interior.jpg";
 import realMejillones from "@/assets/real/maruxa-mejillones.jpg";
 import realPulpo from "@/assets/real/maruxa-pulpo.jpg";
 import realZamburinas from "@/assets/real/maruxa-zamburinas.jpg";
+import brandLogo from "@/assets/brand/maruxa-logo-lockup.jpg";
 import { BranchDivider } from "@/components/maruxa/BranchDivider";
 
 const NAME = "Tapería Maruxa";
@@ -88,7 +89,11 @@ export const Route = createFileRoute("/")({
       { property: "og:image", content: realComedor },
       { property: "og:url", content: "/" },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+    links: [
+      { rel: "canonical", href: "/" },
+      { rel: "icon", type: "image/jpeg", href: "/maruxa-logo.jpg" },
+      { rel: "apple-touch-icon", href: "/maruxa-logo.jpg" },
+    ],
     scripts: [
       {
         type: "application/ld+json",
@@ -158,11 +163,8 @@ function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-ink/10 bg-[color:var(--peach)]/92 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
-        <a href="#inicio" className="flex min-w-0 items-center gap-3">
-          <BrandMark />
-          <span className="hidden truncate font-display text-lg uppercase text-ink sm:inline">
-            Maruxa
-          </span>
+        <a href="#inicio" className="flex min-w-0 items-center">
+          <BrandLogo />
         </a>
 
         <nav className="hidden items-center gap-7 lg:flex">
@@ -853,12 +855,8 @@ function Footer() {
     <footer className="bg-ink text-cream/80">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
-          <div className="flex items-center gap-3">
-            <BrandMark tone="dark" />
-            <div>
-              <p className="font-display text-xl uppercase text-cream">Maruxa</p>
-              <p className="font-script text-[color:var(--peach-deep)]">tapería</p>
-            </div>
+          <div className="flex items-center">
+            <BrandLogo placement="footer" />
           </div>
           <p className="mt-6 max-w-sm leading-7 text-cream/60">
             Tapas, raciones y buenos momentos en Nigrán.
@@ -948,17 +946,18 @@ function Footer() {
   );
 }
 
-function BrandMark({ tone = "light" }: { tone?: "light" | "dark" }) {
-  const classes =
-    tone === "dark" ? "border-cream/18 bg-cream text-ink" : "border-ink/10 bg-cream text-ink";
+function BrandLogo({ placement = "header" }: { placement?: "header" | "footer" }) {
+  const size = placement === "footer" ? "h-28 w-64" : "h-11 w-32 sm:h-12 sm:w-36";
+  const frame = placement === "footer" ? "border-cream/15 shadow-none" : "border-ink/10 shadow-sm";
 
   return (
-    <span
-      aria-hidden="true"
-      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border font-display text-2xl uppercase ${classes}`}
-    >
-      M
-    </span>
+    <img
+      src={brandLogo}
+      alt={NAME}
+      width={960}
+      height={960}
+      className={`${size} shrink-0 rounded-lg border bg-[color:var(--peach)] object-contain object-center ${frame}`}
+    />
   );
 }
 
