@@ -95,7 +95,7 @@ export const Route = createFileRoute("/")({
   component: MaruxaHome,
 });
 
-function MaruxaHome() {
+export function MaruxaHome() {
   return (
     <div className="min-h-screen overflow-x-hidden bg-background pb-20 text-foreground md:pb-0">
       <Header />

@@ -6,8 +6,10 @@
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
+    "build:pages": "vite build --config vite.pages.config.ts",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
+    "preview:pages": "vite preview --config vite.pages.config.ts --outDir dist-pages",
     "lint": "eslint .",
     "format": "prettier --write ."
   },

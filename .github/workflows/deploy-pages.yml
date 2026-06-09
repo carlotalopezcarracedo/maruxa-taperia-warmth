@@ -1,0 +1,74 @@
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  pages: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
+      - name: Resolve Pages base path
+        env:
+          PAGES_BASE_PATH: ${{ vars.PAGES_BASE_PATH }}
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
+        run: |
+          if [ -n "$PAGES_BASE_PATH" ]; then
+            BASE_PATH="$PAGES_BASE_PATH"
+          elif [[ "$REPOSITORY_NAME" == *.github.io ]]; then
+            BASE_PATH="/"
+          else
+            BASE_PATH="/$REPOSITORY_NAME/"
+          fi
+
+          echo "BASE_PATH=$BASE_PATH" >> "$GITHUB_ENV"
+          echo "Using BASE_PATH=$BASE_PATH"
+
+      - name: Build static site
+        run: bun run build:pages
+
+      - name: Prepare Pages artifact
+        run: |
+          touch dist-pages/.nojekyll
+          cp dist-pages/index.html dist-pages/404.html
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-pages
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
