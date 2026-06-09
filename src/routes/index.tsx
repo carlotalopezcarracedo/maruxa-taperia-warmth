@@ -910,123 +910,95 @@ function Gallery() {
       className="scroll-mt-20 overflow-hidden bg-[color:var(--peach)] py-20 text-ink paper-grain md:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[0.46fr_0.54fr] lg:items-end">
-          <div className="max-w-2xl">
+        <div className="grid gap-10 lg:grid-cols-[0.34fr_0.66fr] lg:items-center">
+          <div className="max-w-xl">
             <p className="font-script text-2xl text-terracotta-deep">galería</p>
             <BranchDivider className="mt-3 text-ink" />
             <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
               Ambiente Maruxa
             </h2>
             <p className="mt-6 max-w-xl leading-7 text-ink/70">
-              Un comedor cálido, una barra con detalle y rincones pensados para alargar la
-              sobremesa.
+              Un interior cálido, reconocible y sin artificio: madera, luz suave, papel vegetal y
+              una barra con vida.
             </p>
+
+            <div className="mt-8 border-y border-ink/12 py-5">
+              <p className="font-display text-2xl uppercase leading-none">Comedor y barra</p>
+              <p className="mt-2 text-sm leading-6 text-ink/62">
+                Fotos reales del local en Nigrán.
+              </p>
+            </div>
+
+            <a
+              href={INSTAGRAM}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-8 inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta sm:w-auto"
+            >
+              <Instagram size={16} /> Ver Instagram
+            </a>
           </div>
 
-          <div className="grid gap-3 border-y border-ink/12 py-5 sm:grid-cols-3">
-            <div>
-              <p className="font-display text-2xl uppercase leading-none">Comedor</p>
-              <p className="mt-2 text-sm leading-6 text-ink/62">Luz suave y mesas preparadas.</p>
-            </div>
-            <div>
-              <p className="font-display text-2xl uppercase leading-none">Barra</p>
-              <p className="mt-2 text-sm leading-6 text-ink/62">Flores, copas y vida de tapería.</p>
-            </div>
-            <div>
-              <p className="font-display text-2xl uppercase leading-none">Rincones</p>
-              <p className="mt-2 text-sm leading-6 text-ink/62">Texturas cálidas del local.</p>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,0.68fr)_minmax(300px,0.32fr)] lg:items-start">
           <div>
-            <figure className="group">
-              <div className="aspect-[5/4] overflow-hidden rounded-lg border-[10px] border-cream bg-muted shadow-2xl sm:aspect-[16/9]">
+            <div className="relative hidden min-h-[610px] lg:block">
+              <figure className="absolute left-[6%] top-10 h-[470px] w-[70%] overflow-hidden rounded-lg bg-muted shadow-[0_30px_80px_rgba(74,45,31,0.22)]">
                 <img
                   src={realComedor}
                   alt="Comedor real de Tapería Maruxa"
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  className="h-full w-full object-cover"
+                />
+              </figure>
+              <figure className="absolute right-0 top-0 h-[250px] w-[38%] overflow-hidden rounded-lg border border-cream/65 bg-muted shadow-[0_18px_55px_rgba(74,45,31,0.18)]">
+                <img
+                  src={realBarra}
+                  alt="Detalle de la barra de Tapería Maruxa"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </figure>
+              <figure className="absolute bottom-0 left-0 h-[260px] w-[42%] overflow-hidden rounded-lg border border-cream/65 bg-muted shadow-[0_18px_55px_rgba(74,45,31,0.18)]">
+                <img
+                  src={realInterior}
+                  alt="Rincón del comedor de Tapería Maruxa"
+                  loading="lazy"
+                  className="h-full w-full object-cover"
+                />
+              </figure>
+              <div className="absolute bottom-12 right-0 max-w-xs border-l-4 border-terracotta bg-cream/86 px-5 py-4 shadow-[0_18px_45px_rgba(74,45,31,0.12)] backdrop-blur">
+                <p className="font-display text-2xl uppercase leading-none">Luz de casa</p>
+                <p className="mt-2 text-sm leading-6 text-ink/65">
+                  Un espacio pequeño, cálido y pensado para sobremesas tranquilas.
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-4 lg:hidden">
+              <img
+                src={realComedor}
+                alt="Comedor real de Tapería Maruxa"
+                loading="lazy"
+                className="aspect-[4/3] w-full rounded-lg object-cover shadow-xl"
+              />
+              <div className="grid grid-cols-2 gap-4">
+                <img
+                  src={realBarra}
+                  alt="Detalle de la barra de Tapería Maruxa"
+                  loading="lazy"
+                  className="aspect-[4/5] w-full rounded-lg object-cover shadow-lg"
+                />
+                <img
+                  src={realInterior}
+                  alt="Rincón del comedor de Tapería Maruxa"
+                  loading="lazy"
+                  className="aspect-[4/5] w-full rounded-lg object-cover shadow-lg"
                 />
               </div>
-              <figcaption className="mt-5 grid gap-3 border-t border-ink/14 pt-4 sm:grid-cols-[0.28fr_0.72fr]">
-                <p className="font-display text-3xl uppercase leading-none">Comedor</p>
-                <p className="max-w-xl leading-7 text-ink/68">
-                  Papel vegetal, sillas mezcladas y una luz muy de casa: el lado más reconocible de
-                  Maruxa.
-                </p>
-              </figcaption>
-            </figure>
+            </div>
           </div>
-
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
-            <AmbientPhoto
-              src={realBarra}
-              alt="Detalle de la barra de Tapería Maruxa"
-              title="Barra"
-              copy="Detalles de barra, cristal y flores secas."
-              number="01"
-            />
-            <AmbientPhoto
-              src={realInterior}
-              alt="Rincón del comedor de Tapería Maruxa"
-              title="Rincones"
-              copy="El papel, la luz y las mesas como hilo visual."
-              number="02"
-            />
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col items-start justify-between gap-5 border-t border-ink/10 pt-6 sm:flex-row sm:items-center">
-          <p className="max-w-xl text-sm leading-6 text-ink/58">
-            Las fotos muestran el local real de Maruxa: comedor, barra y detalles del espacio.
-          </p>
-          <a
-            href={INSTAGRAM}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta sm:w-auto"
-          >
-            <Instagram size={16} /> Ver Instagram
-          </a>
         </div>
       </div>
     </section>
-  );
-}
-
-function AmbientPhoto({
-  src,
-  alt,
-  title,
-  copy,
-  number,
-}: {
-  src: string;
-  alt: string;
-  title: string;
-  copy: string;
-  number: string;
-}) {
-  return (
-    <figure className="group">
-      <div className="aspect-[4/3] overflow-hidden rounded-lg border-[8px] border-cream/90 bg-muted shadow-xl">
-        <img
-          src={src}
-          alt={alt}
-          loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-        />
-      </div>
-      <figcaption className="mt-3 flex items-start justify-between gap-4 border-b border-ink/12 pb-4">
-        <div>
-          <p className="font-display text-2xl uppercase leading-none text-ink">{title}</p>
-          <p className="mt-1 text-sm leading-6 text-ink/62">{copy}</p>
-        </div>
-        <span className="font-script text-2xl leading-none text-terracotta-deep">{number}</span>
-      </figcaption>
-    </figure>
   );
 }
 
