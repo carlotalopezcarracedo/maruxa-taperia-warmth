@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Menu,
   X,
@@ -14,9 +14,7 @@ import {
   Baby,
   Wine,
   UtensilsCrossed,
-  Heart,
 } from "lucide-react";
-import logoAsset from "@/assets/maruxa-logo.png.asset.json";
 import heroImg from "@/assets/hero-taperia.jpg";
 import terrazaImg from "@/assets/terraza.jpg";
 import storyImg from "@/assets/story-share.jpg";
@@ -31,7 +29,6 @@ import gal4 from "@/assets/gallery-4.jpg";
 import gal5 from "@/assets/gallery-5.jpg";
 import { BranchDivider } from "@/components/maruxa/BranchDivider";
 
-/* ---------- Real data ---------- */
 const NAME = "Tapería Maruxa";
 const PHONE = "623 50 16 51";
 const PHONE_TEL = "tel:+34623501651";
@@ -42,7 +39,7 @@ const ADDRESS_LINE = "Rúa Telleira, 33";
 const ADDRESS_CITY = "36350 Nigrán, Pontevedra";
 const MAPS_QUERY = encodeURIComponent("Tapería Maruxa, Rúa Telleira 33, Nigrán");
 const MAPS_LINK = `https://www.google.com/maps/search/?api=1&query=${MAPS_QUERY}`;
-const PRICE_RANGE = "10 – 20 €";
+const PRICE_RANGE = "10 - 20 €";
 const RATING = 4.5;
 const REVIEWS = 312;
 
@@ -58,8 +55,7 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Tapería Maruxa | Nigrán" },
       {
         property: "og:description",
-        content:
-          "Tapas, raciones y momentos para compartir en el corazón de Nigrán.",
+        content: "Tapas, raciones y momentos para compartir en el corazón de Nigrán.",
       },
       { property: "og:type", content: "restaurant.restaurant" },
       { property: "og:image", content: heroImg },
@@ -80,7 +76,7 @@ export const Route = createFileRoute("/")({
           url: "/",
           address: {
             "@type": "PostalAddress",
-            streetAddress: "Rúa Telleira, 33",
+            streetAddress: ADDRESS_LINE,
             postalCode: "36350",
             addressLocality: "Nigrán",
             addressRegion: "Pontevedra",
@@ -101,7 +97,7 @@ export const Route = createFileRoute("/")({
 
 function MaruxaHome() {
   return (
-    <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
+    <div className="min-h-screen overflow-x-hidden bg-background pb-20 text-foreground md:pb-0">
       <Header />
       <main>
         <Hero />
@@ -119,7 +115,6 @@ function MaruxaHome() {
   );
 }
 
-/* ---------------- HEADER ---------------- */
 const NAV = [
   { label: "Inicio", href: "#inicio" },
   { label: "Carta", href: "#carta" },
@@ -131,57 +126,57 @@ const NAV = [
 
 function Header() {
   const [open, setOpen] = useState(false);
+
   return (
-    <header className="sticky top-0 z-50 bg-[color:var(--peach)]/85 backdrop-blur-md border-b border-border/60">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 h-20 flex items-center justify-between">
-        <a href="#inicio" className="flex items-center gap-3">
-          <img
-            src={logoAsset.url}
-            alt={NAME}
-            className="h-12 w-12 rounded-full object-cover ring-2 ring-ink/10"
-          />
-          <span className="font-display tracking-[0.28em] text-ink text-lg hidden sm:inline">
-            MARUXA
+    <header className="sticky top-0 z-50 border-b border-ink/10 bg-[color:var(--peach)]/92 backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-20 lg:px-8">
+        <a href="#inicio" className="flex min-w-0 items-center gap-3">
+          <BrandMark />
+          <span className="hidden truncate font-display text-lg uppercase text-ink sm:inline">
+            Maruxa
           </span>
         </a>
-        <nav className="hidden lg:flex items-center gap-8">
+
+        <nav className="hidden items-center gap-7 lg:flex">
           {NAV.map((n) => (
             <a
               key={n.href}
               href={n.href}
-              className="text-xs uppercase tracking-[0.22em] text-ink/80 hover:text-terracotta transition-colors"
+              className="text-sm uppercase text-ink/75 transition-colors hover:text-terracotta"
             >
               {n.label}
             </a>
           ))}
         </nav>
-        <div className="flex items-center gap-3">
+
+        <div className="flex items-center gap-2">
           <a
             href={WHATSAPP}
             target="_blank"
             rel="noopener noreferrer"
-            className="hidden md:inline-flex items-center gap-2 bg-ink text-cream px-5 py-2.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-terracotta transition-colors"
+            className="hidden items-center justify-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta md:inline-flex"
           >
             Reservar mesa
           </a>
           <button
-            aria-label="Menú"
+            aria-label={open ? "Cerrar menú" : "Abrir menú"}
             onClick={() => setOpen((s) => !s)}
-            className="lg:hidden p-2 text-ink"
+            className="rounded-full p-2 text-ink transition-colors hover:bg-cream/50 lg:hidden"
           >
             {open ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
+
       {open && (
-        <div className="lg:hidden bg-[color:var(--peach)] border-t border-border/60">
-          <div className="px-5 py-4 flex flex-col gap-1">
+        <div className="border-t border-ink/10 bg-[color:var(--peach)] lg:hidden">
+          <div className="flex flex-col px-4 py-3 sm:px-6">
             {NAV.map((n) => (
               <a
                 key={n.href}
                 href={n.href}
                 onClick={() => setOpen(false)}
-                className="py-3 text-ink uppercase tracking-[0.22em] text-sm border-b border-ink/10"
+                className="border-b border-ink/10 py-3 text-sm uppercase text-ink"
               >
                 {n.label}
               </a>
@@ -190,9 +185,10 @@ function Header() {
               href={WHATSAPP}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 bg-ink text-cream px-5 py-3 rounded-full text-center text-sm uppercase tracking-[0.22em]"
+              onClick={() => setOpen(false)}
+              className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-ink px-5 py-3 text-sm uppercase text-cream"
             >
-              Reservar mesa
+              <MessageCircle size={16} /> Reservar mesa
             </a>
           </div>
         </div>
@@ -201,140 +197,138 @@ function Header() {
   );
 }
 
-/* ---------------- HERO ---------------- */
 function Hero() {
   return (
-    <section
-      id="inicio"
-      className="relative overflow-hidden bg-[color:var(--peach-deep)]"
-    >
-      {/* background image with strong warm overlay */}
+    <section id="inicio" className="relative scroll-mt-20 overflow-hidden bg-cocoa text-cream">
       <div className="absolute inset-0">
         <img
           src={heroImg}
-          alt="Interior cálido de Tapería Maruxa"
-          className="w-full h-full object-cover"
+          alt="Mesa con tapas y vino en Tapería Maruxa"
+          className="h-full w-full object-cover object-center"
           width={1792}
           height={1216}
         />
-        <div className="absolute inset-0 bg-[color:var(--peach-deep)]/55 mix-blend-multiply" />
-        <div className="absolute inset-0 bg-gradient-to-b from-[color:var(--peach-deep)]/40 via-transparent to-ink/70" />
+        <div className="absolute inset-0 bg-cocoa/55" />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-cocoa/25 to-ink/78" />
       </div>
 
-      {/* decorative floating logo */}
-      <img
-        src={logoAsset.url}
-        alt=""
-        aria-hidden="true"
-        className="hidden md:block absolute -right-16 top-16 w-[420px] opacity-25 rounded-full animate-float blur-[1px]"
-      />
-
-      <div className="relative mx-auto max-w-6xl px-5 md:px-8 pt-24 md:pt-32 pb-28 md:pb-40">
-        <div className="grid lg:grid-cols-[1.2fr_1fr] gap-12 items-center">
-          <div className="text-cream animate-fade-up">
-            <div className="inline-flex items-center gap-2 bg-cream/15 backdrop-blur px-4 py-1.5 rounded-full border border-cream/25 text-xs uppercase tracking-[0.25em]">
-              <MapPin size={12} /> Nigrán · Pontevedra
-            </div>
-            <p className="font-script text-3xl md:text-4xl text-[color:var(--peach)] mt-6">
-              · tapería ·
-            </p>
-            <h1 className="font-display text-[clamp(4rem,12vw,10rem)] leading-[0.85] tracking-[0.06em] mt-2">
-              MARUXA
-            </h1>
-            <BranchDivider className="text-cream mt-6" />
-            <p className="mt-7 text-xl md:text-2xl font-light tracking-wide max-w-xl">
-              Tapas, raciones y momentos para compartir.
-            </p>
-            <p className="mt-3 max-w-xl text-cream/80">
-              Una tapería con sabor de casa, producto cercano y ambiente
-              acogedor en el corazón de Nigrán.
-            </p>
-
-            <div className="mt-9 flex flex-col sm:flex-row gap-3">
-              <a
-                href="#carta"
-                className="inline-flex items-center justify-center gap-2 bg-cream text-ink px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] font-medium hover:bg-[color:var(--peach-deep)] transition-colors"
-              >
-                Ver carta
-              </a>
-              <a
-                href={WHATSAPP}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 bg-terracotta text-cream px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] font-medium hover:bg-terracotta-deep transition-colors"
-              >
-                <MessageCircle size={16} /> Reservar por WhatsApp
-              </a>
-            </div>
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end lg:px-8 lg:py-24">
+        <div className="max-w-3xl">
+          <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-cream/25 bg-cream/12 px-4 py-1.5 text-xs uppercase text-cream backdrop-blur">
+            <MapPin size={13} className="shrink-0 text-[color:var(--peach-deep)]" />
+            <span className="truncate">Nigrán · Pontevedra</span>
           </div>
 
-          {/* rating card */}
-          <div className="lg:justify-self-end animate-fade-up [animation-delay:200ms]">
-            <div className="bg-cream text-ink rounded-3xl p-7 shadow-2xl max-w-sm border border-ink/5">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-ink text-cream flex items-center justify-center font-display text-lg">
-                  G
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-widest text-ink/60">
-                    Google Reseñas
-                  </p>
-                  <p className="font-display tracking-wider text-ink">
-                    {RATING.toFixed(1).replace(".", ",")} · {REVIEWS} opiniones
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-1 mt-3 text-terracotta">
-                {Array.from({ length: 5 }).map((_, i) => (
-                  <Star
-                    key={i}
-                    size={18}
-                    fill="currentColor"
-                    strokeWidth={0}
-                    className={i === 4 ? "opacity-60" : ""}
-                  />
-                ))}
-              </div>
-              <div className="my-5 h-px bg-ink/10" />
-              <p className="font-script text-terracotta text-lg leading-tight">
-                "Sitio con encanto, tapas ricas y trato cercano."
-              </p>
-              <a
-                href={MAPS_LINK}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-5 inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.22em] text-ink hover:text-terracotta"
-              >
-                Ver en Google Maps <ArrowRight size={14} />
-              </a>
+          <p className="mt-6 font-script text-3xl text-[color:var(--peach)] sm:text-4xl">
+            tapería gallega
+          </p>
+          <h1 className="mt-2 font-display text-7xl leading-none text-cream sm:text-8xl lg:text-9xl">
+            MARUXA
+          </h1>
+          <BranchDivider className="mt-5 text-cream" />
+
+          <p className="mt-7 max-w-2xl text-2xl font-light leading-snug sm:text-3xl">
+            Tapas, raciones y momentos para compartir.
+          </p>
+          <p className="mt-4 max-w-xl text-base leading-7 text-cream/82 sm:text-lg">
+            Una tapería con sabor de casa, producto cercano y ambiente acogedor en el corazón de
+            Nigrán.
+          </p>
+
+          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <a
+              href="#carta"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm uppercase text-ink transition-colors hover:bg-[color:var(--peach-deep)] sm:w-auto"
+            >
+              Ver carta <ArrowRight size={16} />
+            </a>
+            <a
+              href={WHATSAPP}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta-deep sm:w-auto"
+            >
+              <MessageCircle size={16} /> Reservar por WhatsApp
+            </a>
+          </div>
+
+          <div className="mt-7 flex items-center gap-3 rounded-lg border border-cream/18 bg-ink/28 p-3 backdrop-blur md:hidden">
+            <div className="flex gap-0.5 text-[color:var(--peach)]">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  size={16}
+                  fill="currentColor"
+                  strokeWidth={0}
+                  className={i === 4 ? "opacity-60" : ""}
+                />
+              ))}
             </div>
+            <p className="text-sm text-cream/90">
+              {RATING.toFixed(1).replace(".", ",")} en Google · {REVIEWS} opiniones
+            </p>
           </div>
         </div>
+
+        <aside className="hidden rounded-lg border border-cream/18 bg-cream p-6 text-ink shadow-2xl md:block lg:justify-self-end">
+          <div className="flex items-center gap-3">
+            <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink font-display text-lg text-cream">
+              G
+            </div>
+            <div>
+              <p className="text-xs uppercase text-ink/58">Google Reseñas</p>
+              <p className="font-display text-lg text-ink">
+                {RATING.toFixed(1).replace(".", ",")} · {REVIEWS} opiniones
+              </p>
+            </div>
+          </div>
+          <div className="mt-4 flex gap-1 text-terracotta">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                size={18}
+                fill="currentColor"
+                strokeWidth={0}
+                className={i === 4 ? "opacity-60" : ""}
+              />
+            ))}
+          </div>
+          <div className="my-5 h-px bg-ink/10" />
+          <p className="font-script text-xl leading-snug text-terracotta">
+            "Sitio con encanto, tapas ricas y trato cercano."
+          </p>
+          <a
+            href={MAPS_LINK}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm uppercase text-ink transition-colors hover:text-terracotta"
+          >
+            Ver en Google Maps <ArrowRight size={14} />
+          </a>
+        </aside>
       </div>
 
-      {/* feature strip */}
-      <div className="relative bg-ink text-cream/90 border-y border-cream/10">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-5 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Feature icon={<Sun size={16} />} label="Terraza" />
-          <Feature icon={<Wine size={16} />} label="Comedor privado" />
-          <Feature icon={<Baby size={16} />} label="Tronas" />
-          <Feature icon={<UtensilsCrossed size={16} />} label={PRICE_RANGE + " · pers."} />
+      <div className="relative border-y border-cream/10 bg-ink text-cream/90">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-cream/10 px-0 sm:grid-cols-4 lg:px-8">
+          <Feature icon={<Sun size={17} />} label="Terraza" />
+          <Feature icon={<Wine size={17} />} label="Comedor privado" />
+          <Feature icon={<Baby size={17} />} label="Tronas" />
+          <Feature icon={<UtensilsCrossed size={17} />} label={`${PRICE_RANGE} · pers.`} />
         </div>
       </div>
     </section>
   );
 }
 
-function Feature({ icon, label }: { icon: React.ReactNode; label: string }) {
+function Feature({ icon, label }: { icon: ReactNode; label: string }) {
   return (
-    <div className="flex items-center gap-2.5 justify-center md:justify-start">
-      <span className="text-terracotta">{icon}</span>
-      <span className="text-xs uppercase tracking-[0.22em]">{label}</span>
+    <div className="flex min-h-20 flex-col items-center justify-center gap-1 bg-ink px-2 py-3 text-center sm:min-h-16 sm:flex-row sm:gap-2 sm:px-3 sm:text-left lg:px-0">
+      <span className="shrink-0 text-[color:var(--olive)]">{icon}</span>
+      <span className="text-[0.7rem] uppercase leading-tight sm:text-xs">{label}</span>
     </div>
   );
 }
 
-/* ---------------- MARQUEE ---------------- */
 function Marquee() {
   const words = [
     "tapas",
@@ -342,22 +336,19 @@ function Marquee() {
     "sobremesa",
     "pulpo",
     "vinos gallegos",
-    "tabla de ibéricos",
     "padrón",
     "empanada",
-    "buen rollo",
     "para compartir",
   ];
   const row = [...words, ...words];
+
   return (
-    <div className="bg-[color:var(--peach)] border-y border-ink/10 overflow-hidden">
-      <div className="flex animate-marquee whitespace-nowrap py-5">
+    <div className="overflow-hidden border-y border-ink/10 bg-[color:var(--peach)]">
+      <div className="flex animate-marquee whitespace-nowrap py-4">
         {row.map((w, i) => (
-          <div key={i} className="flex items-center gap-6 px-6">
-            <span className="font-display tracking-[0.25em] uppercase text-2xl md:text-3xl text-ink">
-              {w}
-            </span>
-            <span className="text-terracotta font-script text-2xl">·</span>
+          <div key={i} className="flex items-center gap-5 px-5">
+            <span className="font-display text-2xl uppercase text-ink md:text-3xl">{w}</span>
+            <span className="font-script text-2xl text-wine">·</span>
           </div>
         ))}
       </div>
@@ -365,70 +356,53 @@ function Marquee() {
   );
 }
 
-/* ---------------- STORY (zigzag) ---------------- */
 function Story() {
   return (
-    <section id="sobre" className="py-24 md:py-32 bg-background paper-grain">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 space-y-24">
-        {/* row 1 */}
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="order-2 lg:order-1">
-            <p className="font-script text-2xl text-terracotta">· sobre maruxa ·</p>
-            <BranchDivider className="text-ink mt-3" />
-            <h2 className="font-display text-4xl md:text-6xl tracking-wide text-ink mt-5">
-              Un lugar para comer sin prisa
-            </h2>
-            <p className="mt-6 text-lg text-ink/75 leading-relaxed">
-              En Maruxa apostamos por una cocina sencilla, sabrosa y pensada para
-              compartir: tapas, raciones, platos de temporada y ese ambiente de
-              tapería al que siempre apetece volver.
-            </p>
-            <p className="mt-4 text-ink/70 leading-relaxed">
-              Estamos en la Rúa Telleira, en Nigrán. Con terraza para los días
-              buenos, comedor privado para celebraciones y tronas para los más
-              pequeños. Aquí cabe todo el mundo.
-            </p>
-            <div className="mt-8 grid sm:grid-cols-3 gap-3">
-              {[
-                { t: "Tapas y raciones", d: "Para picotear y compartir." },
-                { t: "Producto cercano", d: "De mercado, con mimo." },
-                { t: "Ambiente familiar", d: "Como en casa de Maruxa." },
-              ].map((it) => (
-                <div
-                  key={it.t}
-                  className="bg-cream border border-border rounded-2xl p-5"
-                >
-                  <p className="font-display tracking-wider uppercase text-sm text-ink">
-                    {it.t}
-                  </p>
-                  <p className="text-sm text-ink/65 mt-1">{it.d}</p>
-                </div>
-              ))}
-            </div>
+    <section id="sobre" className="scroll-mt-20 bg-background py-20 paper-grain md:py-28">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start lg:gap-16 lg:px-8">
+        <figure className="order-1 lg:order-2">
+          <div className="aspect-[4/5] overflow-hidden rounded-lg shadow-2xl">
+            <img
+              src={terrazaImg}
+              alt="Terraza de Tapería Maruxa en Nigrán"
+              loading="lazy"
+              width={1024}
+              height={1280}
+              className="h-full w-full object-cover"
+            />
           </div>
-          <div className="order-1 lg:order-2 relative">
-            <div className="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl">
-              <img
-                src={terrazaImg}
-                alt="Terraza de Tapería Maruxa en Nigrán"
-                loading="lazy"
-                width={1024}
-                height={1280}
-                className="w-full h-full object-cover"
-              />
-            </div>
-            <div className="absolute -bottom-6 -left-6 bg-terracotta text-cream rounded-2xl p-5 shadow-xl hidden sm:block max-w-[210px]">
-              <p className="font-script text-xl leading-tight">Con terraza</p>
-              <p className="text-xs uppercase tracking-widest mt-1 opacity-80">
-                para los días buenos
-              </p>
-            </div>
-            <div className="absolute -top-5 -right-5 bg-cream text-ink rounded-full px-4 py-3 shadow-xl hidden sm:flex items-center gap-2 border border-ink/5">
-              <Heart size={16} className="text-terracotta" />
-              <span className="text-xs uppercase tracking-widest">
-                desde Nigrán
-              </span>
-            </div>
+          <figcaption className="mt-4 flex flex-col gap-3 border-l-4 border-terracotta bg-cream px-4 py-3 text-sm text-ink/70 sm:flex-row sm:items-center sm:justify-between">
+            <span className="font-display uppercase text-ink">Terraza y comedor privado</span>
+            <span>Un sitio fácil para venir con calma, en pareja o en grupo.</span>
+          </figcaption>
+        </figure>
+
+        <div className="order-2 lg:order-1">
+          <p className="font-script text-2xl text-terracotta">sobre Maruxa</p>
+          <BranchDivider className="mt-3 text-ink" />
+          <h2 className="mt-5 max-w-2xl font-display text-4xl leading-tight text-ink md:text-6xl">
+            Un lugar para comer sin prisa
+          </h2>
+          <p className="mt-6 text-lg leading-8 text-ink/75">
+            En Maruxa apostamos por una cocina sencilla, sabrosa y pensada para compartir: tapas,
+            raciones, platos de temporada y ese ambiente de tapería al que siempre apetece volver.
+          </p>
+          <p className="mt-4 leading-7 text-ink/70">
+            Estamos en la Rúa Telleira, en Nigrán. Con terraza para los días buenos, comedor privado
+            para celebraciones y tronas para los más pequeños. Aquí cabe todo el mundo.
+          </p>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {[
+              { t: "Tapas y raciones", d: "Para picotear y compartir." },
+              { t: "Producto cercano", d: "De mercado, con mimo." },
+              { t: "Ambiente familiar", d: "Como en casa de Maruxa." },
+            ].map((it) => (
+              <div key={it.t} className="rounded-lg border border-border bg-cream p-5">
+                <p className="font-display text-sm uppercase text-ink">{it.t}</p>
+                <p className="mt-1 text-sm leading-6 text-ink/65">{it.d}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -436,7 +410,6 @@ function Story() {
   );
 }
 
-/* ---------------- CARTA ---------------- */
 function Carta() {
   const categories = [
     {
@@ -470,55 +443,51 @@ function Carta() {
       price: "a consultar",
     },
   ];
+
   return (
-    <section id="carta" className="py-24 md:py-32 bg-[color:var(--peach)]">
-      <div className="mx-auto max-w-6xl px-5 md:px-8">
-        <div className="text-center">
-          <p className="font-script text-2xl text-terracotta-deep">· la carta ·</p>
-          <BranchDivider className="text-ink mt-3 flex justify-center" />
-          <h2 className="font-display text-4xl md:text-6xl tracking-wide text-ink mt-5">
+    <section id="carta" className="scroll-mt-20 bg-[color:var(--peach)] py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="font-script text-2xl text-terracotta-deep">la carta</p>
+          <BranchDivider className="mx-auto mt-3 text-ink" />
+          <h2 className="mt-5 font-display text-4xl leading-tight text-ink md:text-6xl">
             Nuestra carta
           </h2>
-          <p className="mt-6 max-w-xl mx-auto text-ink/75">
-            Una propuesta corta, honesta y pensada para compartir. Cambia con el
-            producto y la temporada.
+          <p className="mx-auto mt-6 leading-7 text-ink/75">
+            Una propuesta corta, honesta y pensada para compartir. Cambia con el producto y la
+            temporada.
           </p>
         </div>
 
-        <div className="mt-14 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((c, i) => (
             <article
               key={c.name}
-              className="group bg-cream rounded-2xl p-8 border border-ink/10 hover:border-terracotta hover:-translate-y-1 transition-all"
+              className="group rounded-lg border border-ink/10 bg-cream p-6 transition-all hover:-translate-y-1 hover:border-terracotta"
             >
               <div className="flex items-start justify-between gap-4">
-                <span className="font-script text-terracotta text-2xl">
+                <span className="font-script text-2xl text-terracotta">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="font-script text-terracotta whitespace-nowrap">
+                <span className="shrink-0 rounded-full bg-[color:var(--olive-soft)] px-3 py-1 text-xs uppercase text-ink">
                   {c.price}
                 </span>
               </div>
-              <h3 className="font-display text-3xl tracking-wider text-ink uppercase mt-4">
-                {c.name}
-              </h3>
+              <h3 className="mt-4 font-display text-3xl uppercase text-ink">{c.name}</h3>
               <div className="mt-3 h-px w-12 bg-terracotta" />
-              <p className="mt-4 text-ink/70">{c.desc}</p>
-              <div className="mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.22em] text-terracotta">
-                Ver detalle{" "}
-                <ArrowRight
-                  size={14}
-                  className="group-hover:translate-x-1 transition-transform"
-                />
+              <p className="mt-4 min-h-14 leading-7 text-ink/70">{c.desc}</p>
+              <div className="mt-6 inline-flex items-center gap-2 text-sm uppercase text-terracotta">
+                Ver detalle
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
               </div>
             </article>
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
           <a
-            href={`tel:+34623501651`}
-            className="inline-flex items-center justify-center gap-2 bg-ink text-cream px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-terracotta transition-colors"
+            href={PHONE_TEL}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta sm:w-auto"
           >
             <Phone size={16} /> Consultar carta completa
           </a>
@@ -526,7 +495,7 @@ function Carta() {
             href={WHATSAPP}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-transparent border border-ink text-ink px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-ink hover:text-cream transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-ink bg-transparent px-6 py-3.5 text-sm uppercase text-ink transition-colors hover:bg-ink hover:text-cream sm:w-auto"
           >
             <MessageCircle size={16} /> Preguntar por WhatsApp
           </a>
@@ -536,7 +505,6 @@ function Carta() {
   );
 }
 
-/* ---------------- RECOMMENDATIONS ---------------- */
 function Recommendations() {
   const items = [
     { img: dish2, name: "Pulpo a feira", note: "Clásico gallego con pimentón y aceite." },
@@ -544,42 +512,42 @@ function Recommendations() {
     { img: dish4, name: "Tabla de ibéricos", note: "Jamón, queso y pan. Sencillez bien hecha." },
     { img: dish1, name: "Surtido de tapas", note: "Lo mejor de la barra en una sola tabla." },
   ];
+
   return (
-    <section className="py-24 md:py-32 bg-background relative">
-      <div className="mx-auto max-w-7xl px-5 md:px-8">
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-14">
+    <section className="bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="font-script text-2xl text-terracotta">· imprescindibles ·</p>
-            <BranchDivider className="text-ink mt-3" />
-            <h2 className="font-display text-4xl md:text-6xl tracking-wide text-ink max-w-2xl mt-5">
+            <p className="font-script text-2xl text-terracotta">imprescindibles</p>
+            <BranchDivider className="mt-3 text-ink" />
+            <h2 className="mt-5 max-w-2xl font-display text-4xl leading-tight text-ink md:text-6xl">
               Lo que no puede faltar en la mesa
             </h2>
           </div>
-          <p className="text-ink/65 max-w-sm">
-            Recetas que se piden una y otra vez. Hay quien viene a Maruxa solo
-            por ellas (y vuelve por todo lo demás).
+          <p className="max-w-md leading-7 text-ink/65">
+            Recetas que se piden una y otra vez. Hay quien viene a Maruxa solo por ellas y vuelve
+            por todo lo demás.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {items.map((it, i) => (
             <article key={it.name} className="group">
-              <div className="aspect-[4/5] overflow-hidden rounded-2xl bg-muted relative">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-muted">
                 <img
                   src={it.img}
                   alt={it.name}
                   loading="lazy"
                   width={1024}
                   height={1280}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute top-4 left-4 bg-cream/95 text-ink rounded-full w-9 h-9 flex items-center justify-center font-display text-sm">
+                <div className="absolute left-4 top-4 flex h-9 w-9 items-center justify-center rounded-lg bg-cream/95 font-display text-sm text-ink">
                   {String(i + 1).padStart(2, "0")}
                 </div>
               </div>
-              <h3 className="mt-5 font-display text-2xl tracking-wider text-ink uppercase">
-                {it.name}
-              </h3>
-              <p className="mt-1 text-ink/65 text-sm">{it.note}</p>
+              <h3 className="mt-5 font-display text-2xl uppercase text-ink">{it.name}</h3>
+              <p className="mt-1 text-sm leading-6 text-ink/65">{it.note}</p>
             </article>
           ))}
         </div>
@@ -588,47 +556,67 @@ function Recommendations() {
   );
 }
 
-/* ---------------- GALLERY ---------------- */
 function Gallery() {
   return (
     <section
       id="galeria"
-      className="py-24 md:py-32 bg-[color:var(--cocoa)] text-cream relative overflow-hidden"
+      className="scroll-mt-20 overflow-hidden bg-[color:var(--cocoa)] py-20 text-cream md:py-28"
     >
-      <img
-        src={logoAsset.url}
-        alt=""
-        aria-hidden="true"
-        className="absolute -left-32 -bottom-32 w-[480px] opacity-10 rounded-full"
-      />
-      <div className="relative mx-auto max-w-7xl px-5 md:px-8">
-        <div className="text-center">
-          <p className="font-script text-2xl text-[color:var(--peach-deep)]">
-            · galería ·
-          </p>
-          <BranchDivider className="text-cream mt-3 flex justify-center" />
-          <h2 className="font-display text-4xl md:text-6xl tracking-wide mt-5">
-            Ambiente Maruxa
-          </h2>
-          <p className="mt-6 max-w-xl mx-auto text-cream/70">
-            Un vistazo al local, la terraza, la barra y los platos que salen
-            cada día.
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center">
+          <p className="font-script text-2xl text-[color:var(--peach-deep)]">galería</p>
+          <BranchDivider className="mx-auto mt-3 text-cream" />
+          <h2 className="mt-5 font-display text-4xl leading-tight md:text-6xl">Ambiente Maruxa</h2>
+          <p className="mx-auto mt-6 leading-7 text-cream/72">
+            Un vistazo al local, la terraza, la barra y los platos que salen cada día.
           </p>
         </div>
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 auto-rows-[160px] md:auto-rows-[220px]">
-          <img src={gal1} alt="Barra de la tapería" loading="lazy" className="w-full h-full object-cover rounded-xl row-span-2" />
-          <img src={storyImg} alt="Compartiendo tapas" loading="lazy" className="w-full h-full object-cover rounded-xl col-span-2" />
-          <img src={gal3} alt="Pimientos de padrón" loading="lazy" className="w-full h-full object-cover rounded-xl" />
-          <img src={gal4} alt="Copa de vino" loading="lazy" className="w-full h-full object-cover rounded-xl" />
-          <img src={gal5} alt="Empanada gallega" loading="lazy" className="w-full h-full object-cover rounded-xl col-span-2" />
-          <img src={gal2} alt="Brindis entre amigos" loading="lazy" className="w-full h-full object-cover rounded-xl" />
+
+        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 md:auto-rows-[220px]">
+          <img
+            src={gal1}
+            alt="Barra de la tapería"
+            loading="lazy"
+            className="h-full min-h-64 w-full rounded-lg object-cover md:row-span-2"
+          />
+          <img
+            src={storyImg}
+            alt="Compartiendo tapas"
+            loading="lazy"
+            className="h-full min-h-52 w-full rounded-lg object-cover md:col-span-2"
+          />
+          <img
+            src={gal3}
+            alt="Pimientos de padrón"
+            loading="lazy"
+            className="h-full min-h-52 w-full rounded-lg object-cover"
+          />
+          <img
+            src={gal4}
+            alt="Copa de vino"
+            loading="lazy"
+            className="h-full min-h-52 w-full rounded-lg object-cover"
+          />
+          <img
+            src={gal5}
+            alt="Empanada gallega"
+            loading="lazy"
+            className="h-full min-h-52 w-full rounded-lg object-cover md:col-span-2"
+          />
+          <img
+            src={gal2}
+            alt="Brindis entre amigos"
+            loading="lazy"
+            className="h-full min-h-52 w-full rounded-lg object-cover"
+          />
         </div>
+
         <div className="mt-10 text-center">
           <a
             href={INSTAGRAM}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-cream text-ink px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-[color:var(--peach-deep)] transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm uppercase text-ink transition-colors hover:bg-[color:var(--peach-deep)] sm:w-auto"
           >
             <Instagram size={16} /> Síguenos @taperiamaruxa
           </a>
@@ -638,35 +626,44 @@ function Gallery() {
   );
 }
 
-/* ---------------- RESERVAS ---------------- */
 function Reservas() {
   return (
-    <section id="contacto" className="relative py-24 md:py-32 overflow-hidden">
-      <div className="absolute inset-0 paper-grain bg-[color:var(--peach-deep)]" />
-      <div className="relative mx-auto max-w-3xl px-5 md:px-8 text-center">
-        <p className="font-script text-2xl text-terracotta-deep">
-          · te esperamos ·
+    <section
+      id="contacto"
+      className="relative scroll-mt-20 overflow-hidden py-20 text-cream md:py-28"
+    >
+      <div className="absolute inset-0">
+        <img
+          src={storyImg}
+          alt=""
+          aria-hidden="true"
+          loading="lazy"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-cocoa/78" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ink/65 via-cocoa/48 to-wine/50" />
+      </div>
+
+      <div className="relative mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8">
+        <p className="font-script text-2xl text-[color:var(--peach-deep)]">te esperamos</p>
+        <BranchDivider className="mx-auto mt-3 text-cream" />
+        <h2 className="mt-5 font-display text-4xl leading-tight md:text-6xl">Reserva tu mesa</h2>
+        <p className="mx-auto mt-6 max-w-xl text-lg leading-8 text-cream/82">
+          Escríbenos por WhatsApp o llámanos y te confirmamos disponibilidad. Para grupos y comedor
+          privado, mejor con un poco de antelación.
         </p>
-        <BranchDivider className="text-ink mt-3 flex justify-center" />
-        <h2 className="font-display text-4xl md:text-6xl tracking-wide text-ink mt-5">
-          Reserva tu mesa
-        </h2>
-        <p className="mt-6 text-lg text-ink/75 max-w-xl mx-auto">
-          Escríbenos por WhatsApp o llámanos y te confirmamos disponibilidad.
-          Para grupos y comedor privado, mejor con un poco de antelación.
-        </p>
-        <div className="mt-10 flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
           <a
             href={WHATSAPP}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-ink text-cream px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-terracotta transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-cream px-6 py-3.5 text-sm uppercase text-ink transition-colors hover:bg-[color:var(--peach-deep)] sm:w-auto"
           >
             <MessageCircle size={16} /> Reservar por WhatsApp
           </a>
           <a
             href={PHONE_TEL}
-            className="inline-flex items-center justify-center gap-2 bg-transparent border border-ink text-ink px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-ink hover:text-cream transition-colors"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-cream/45 bg-cream/10 px-6 py-3.5 text-sm uppercase text-cream backdrop-blur transition-colors hover:bg-cream hover:text-ink sm:w-auto"
           >
             <Phone size={16} /> Llamar al {PHONE}
           </a>
@@ -676,82 +673,58 @@ function Reservas() {
   );
 }
 
-/* ---------------- UBICACIÓN ---------------- */
 function Ubicacion() {
   return (
-    <section id="ubicacion" className="py-24 md:py-32 bg-background">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 grid lg:grid-cols-2 gap-12 items-center">
+    <section id="ubicacion" className="scroll-mt-20 bg-background py-20 md:py-28">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16 lg:px-8">
         <div>
-          <p className="font-script text-2xl text-terracotta">· dónde estamos ·</p>
-          <BranchDivider className="text-ink mt-3" />
-          <h2 className="font-display text-4xl md:text-6xl tracking-wide text-ink mt-5">
+          <p className="font-script text-2xl text-terracotta">dónde estamos</p>
+          <BranchDivider className="mt-3 text-ink" />
+          <h2 className="mt-5 font-display text-4xl leading-tight text-ink md:text-6xl">
             Ven a visitarnos
           </h2>
-          <ul className="mt-10 space-y-5 text-ink">
-            <li className="flex gap-4">
-              <MapPin className="text-terracotta shrink-0 mt-1" size={20} />
-              <div>
-                <p className="font-display tracking-widest uppercase text-sm text-ink/60">
-                  Dirección
-                </p>
-                <p className="text-lg">{ADDRESS_LINE}</p>
-                <p className="text-ink/70">{ADDRESS_CITY}</p>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <Clock className="text-terracotta shrink-0 mt-1" size={20} />
-              <div>
-                <p className="font-display tracking-widest uppercase text-sm text-ink/60">
-                  Horario
-                </p>
-                <p className="text-lg">Mié – Dom · 12:00 – cierre</p>
-                <p className="text-ink/60 text-sm">
-                  Consulta horario actualizado en Google
-                </p>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <Phone className="text-terracotta shrink-0 mt-1" size={20} />
-              <div>
-                <p className="font-display tracking-widest uppercase text-sm text-ink/60">
-                  Teléfono
-                </p>
-                <a href={PHONE_TEL} className="text-lg hover:text-terracotta">
-                  {PHONE}
-                </a>
-              </div>
-            </li>
-            <li className="flex gap-4">
-              <Instagram className="text-terracotta shrink-0 mt-1" size={20} />
-              <div>
-                <p className="font-display tracking-widest uppercase text-sm text-ink/60">
-                  Instagram
-                </p>
-                <a
-                  href={INSTAGRAM}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-lg hover:text-terracotta"
-                >
-                  @taperiamaruxa
-                </a>
-              </div>
-            </li>
+
+          <ul className="mt-9 divide-y divide-border text-ink">
+            <InfoRow icon={<MapPin size={20} />} title="Dirección">
+              <p className="text-lg">{ADDRESS_LINE}</p>
+              <p className="text-ink/70">{ADDRESS_CITY}</p>
+            </InfoRow>
+            <InfoRow icon={<Clock size={20} />} title="Horario">
+              <p className="text-lg">Mié - Dom · 12:00 - cierre</p>
+              <p className="text-sm text-ink/60">Consulta horario actualizado en Google</p>
+            </InfoRow>
+            <InfoRow icon={<Phone size={20} />} title="Teléfono">
+              <a href={PHONE_TEL} className="text-lg transition-colors hover:text-terracotta">
+                {PHONE}
+              </a>
+            </InfoRow>
+            <InfoRow icon={<Instagram size={20} />} title="Instagram">
+              <a
+                href={INSTAGRAM}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-lg transition-colors hover:text-terracotta"
+              >
+                @taperiamaruxa
+              </a>
+            </InfoRow>
           </ul>
+
           <a
             href={MAPS_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-10 inline-flex items-center gap-2 bg-terracotta text-cream px-7 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] hover:bg-terracotta-deep transition-colors"
+            className="mt-9 inline-flex w-full items-center justify-center gap-2 rounded-full bg-terracotta px-6 py-3.5 text-sm uppercase text-cream transition-colors hover:bg-terracotta-deep sm:w-auto"
           >
             Cómo llegar <ArrowRight size={16} />
           </a>
         </div>
-        <div className="rounded-3xl overflow-hidden border border-border shadow-xl aspect-[4/5] lg:aspect-square bg-muted">
+
+        <div className="aspect-[4/3] overflow-hidden rounded-lg border border-border bg-muted shadow-xl lg:aspect-square">
           <iframe
             title="Ubicación Tapería Maruxa"
             src={`https://www.google.com/maps?q=${MAPS_QUERY}&output=embed`}
-            className="w-full h-full"
+            className="h-full w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
@@ -761,46 +734,59 @@ function Ubicacion() {
   );
 }
 
-/* ---------------- FOOTER ---------------- */
+function InfoRow({
+  icon,
+  title,
+  children,
+}: {
+  icon: ReactNode;
+  title: string;
+  children: ReactNode;
+}) {
+  return (
+    <li className="flex gap-4 py-5 first:pt-0">
+      <span className="mt-1 shrink-0 text-terracotta">{icon}</span>
+      <div>
+        <p className="font-display text-sm uppercase text-ink/58">{title}</p>
+        <div className="mt-1">{children}</div>
+      </div>
+    </li>
+  );
+}
+
 function Footer() {
   return (
     <footer className="bg-ink text-cream/80">
-      <div className="mx-auto max-w-7xl px-5 md:px-8 py-16 grid md:grid-cols-4 gap-10">
+      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 md:grid-cols-4 lg:px-8">
         <div className="md:col-span-2">
           <div className="flex items-center gap-3">
-            <img
-              src={logoAsset.url}
-              alt={NAME}
-              className="h-14 w-14 rounded-full object-cover"
-            />
+            <BrandMark tone="dark" />
             <div>
-              <p className="font-display tracking-[0.28em] text-cream text-xl">
-                MARUXA
-              </p>
-              <p className="font-script text-[color:var(--peach-deep)]">
-                · tapería ·
-              </p>
+              <p className="font-display text-xl uppercase text-cream">Maruxa</p>
+              <p className="font-script text-[color:var(--peach-deep)]">tapería</p>
             </div>
           </div>
-          <p className="mt-6 max-w-sm text-cream/60">
+          <p className="mt-6 max-w-sm leading-7 text-cream/60">
             Tapas, raciones y buenos momentos en Nigrán.
           </p>
         </div>
+
         <div>
-          <p className="font-display tracking-widest uppercase text-cream mb-4 text-sm">
-            Visítanos
-          </p>
-          <ul className="space-y-2 text-sm">
+          <p className="mb-4 font-display text-sm uppercase text-cream">Visítanos</p>
+          <ul className="space-y-2 text-sm leading-6">
             <li>{ADDRESS_LINE}</li>
             <li>{ADDRESS_CITY}</li>
             <li>
-              <a className="hover:text-[color:var(--peach-deep)]" href={PHONE_TEL}>
+              <a
+                className="transition-colors hover:text-[color:var(--peach-deep)]"
+                href={PHONE_TEL}
+              >
                 {PHONE}
               </a>
             </li>
             <li>
               <a
-                className="hover:text-[color:var(--peach-deep)]"
+                className="transition-colors hover:text-[color:var(--peach-deep)]"
                 href={INSTAGRAM}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -810,25 +796,24 @@ function Footer() {
             </li>
           </ul>
         </div>
+
         <div>
-          <p className="font-display tracking-widest uppercase text-cream mb-4 text-sm">
-            Enlaces
-          </p>
-          <ul className="space-y-2 text-sm">
+          <p className="mb-4 font-display text-sm uppercase text-cream">Enlaces</p>
+          <ul className="space-y-2 text-sm leading-6">
             <li>
-              <a href="#carta" className="hover:text-[color:var(--peach-deep)]">
+              <a href="#carta" className="transition-colors hover:text-[color:var(--peach-deep)]">
                 Carta
               </a>
             </li>
             <li>
-              <a href="#galeria" className="hover:text-[color:var(--peach-deep)]">
+              <a href="#galeria" className="transition-colors hover:text-[color:var(--peach-deep)]">
                 Galería
               </a>
             </li>
             <li>
               <a
                 href="#ubicacion"
-                className="hover:text-[color:var(--peach-deep)]"
+                className="transition-colors hover:text-[color:var(--peach-deep)]"
               >
                 Ubicación
               </a>
@@ -838,7 +823,7 @@ function Footer() {
                 href={WHATSAPP}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:text-[color:var(--peach-deep)]"
+                className="transition-colors hover:text-[color:var(--peach-deep)]"
               >
                 Reservas
               </a>
@@ -846,15 +831,22 @@ function Footer() {
           </ul>
         </div>
       </div>
+
       <div className="border-t border-cream/10">
-        <div className="mx-auto max-w-7xl px-5 md:px-8 py-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-cream/50">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-center text-xs text-cream/50 sm:px-6 md:flex-row lg:px-8">
           <p>
             © {new Date().getFullYear()} {NAME}. Todos los derechos reservados.
           </p>
-          <div className="flex gap-5">
-            <a href="#" className="hover:text-cream">Aviso legal</a>
-            <a href="#" className="hover:text-cream">Privacidad</a>
-            <a href="#" className="hover:text-cream">Cookies</a>
+          <div className="flex flex-wrap justify-center gap-5">
+            <a href="#" className="transition-colors hover:text-cream">
+              Aviso legal
+            </a>
+            <a href="#" className="transition-colors hover:text-cream">
+              Privacidad
+            </a>
+            <a href="#" className="transition-colors hover:text-cream">
+              Cookies
+            </a>
           </div>
         </div>
       </div>
@@ -862,24 +854,37 @@ function Footer() {
   );
 }
 
-/* ---------------- MOBILE CTA ---------------- */
+function BrandMark({ tone = "light" }: { tone?: "light" | "dark" }) {
+  const classes =
+    tone === "dark" ? "border-cream/18 bg-cream text-ink" : "border-ink/10 bg-cream text-ink";
+
+  return (
+    <span
+      aria-hidden="true"
+      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-lg border font-display text-2xl uppercase ${classes}`}
+    >
+      M
+    </span>
+  );
+}
+
 function MobileCta() {
   return (
-    <div className="md:hidden fixed bottom-4 inset-x-4 z-40 flex gap-2">
+    <div className="fixed inset-x-3 bottom-3 z-40 flex gap-2 md:hidden">
       <a
         href={WHATSAPP}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex-1 inline-flex items-center justify-center gap-2 bg-ink text-cream px-5 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] shadow-2xl"
+        className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-ink px-5 py-3.5 text-sm uppercase text-cream shadow-2xl"
       >
         <MessageCircle size={16} /> Reservar
       </a>
       <a
         href={PHONE_TEL}
-        className="inline-flex items-center justify-center gap-2 bg-terracotta text-cream px-5 py-3.5 rounded-full text-xs uppercase tracking-[0.22em] shadow-2xl"
+        className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-terracotta text-cream shadow-2xl"
         aria-label="Llamar"
       >
-        <Phone size={16} />
+        <Phone size={17} />
       </a>
     </div>
   );

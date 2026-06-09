@@ -1,7 +1,11 @@
 export function BranchDivider({ className = "" }: { className?: string }) {
   return (
     <div className={`branch-divider ${className}`} aria-hidden="true">
-      <svg width="200" height="22" viewBox="0 0 200 22" fill="none" className="text-current opacity-80">
+      <svg
+        viewBox="0 0 200 22"
+        fill="none"
+        className="h-[18px] w-36 text-current opacity-80 sm:w-44"
+      >
         <g fill="currentColor">
           <ellipse cx="8" cy="11" rx="7" ry="3" transform="rotate(-20 8 11)" />
           <ellipse cx="20" cy="6" rx="5" ry="2.4" transform="rotate(-40 20 6)" />

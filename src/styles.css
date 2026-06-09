@@ -34,6 +34,10 @@
   --color-terracotta-deep: var(--terracotta-deep);
   --color-cream: var(--cream);
   --color-cocoa: var(--cocoa);
+  --color-olive: var(--olive);
+  --color-olive-soft: var(--olive-soft);
+  --color-wine: var(--wine);
+  --color-sea: var(--sea);
   --color-ink: var(--ink);
 
   --font-display: "Oswald", "Bebas Neue", sans-serif;
@@ -45,13 +49,17 @@
   --radius: 0.5rem;
 
   /* brand */
-  --peach: oklch(0.87 0.08 65);          /* #F6D0A3 */
-  --peach-deep: oklch(0.82 0.10 60);     /* #F4C996 */
-  --terracotta: oklch(0.62 0.14 45);     /* #C96A3D */
+  --peach: oklch(0.87 0.08 65); /* #F6D0A3 */
+  --peach-deep: oklch(0.82 0.1 60); /* #F4C996 */
+  --terracotta: oklch(0.62 0.14 45); /* #C96A3D */
   --terracotta-deep: oklch(0.52 0.13 42);
-  --cream: oklch(0.985 0.015 80);        /* #FFF8EF */
-  --cocoa: oklch(0.32 0.06 40);          /* #4A2D1F */
-  --ink: oklch(0.18 0.005 60);           /* #111111 */
+  --cream: oklch(0.985 0.015 80); /* #FFF8EF */
+  --cocoa: oklch(0.32 0.06 40); /* #4A2D1F */
+  --olive: oklch(0.48 0.08 130);
+  --olive-soft: oklch(0.9 0.04 120);
+  --wine: oklch(0.36 0.11 18);
+  --sea: oklch(0.52 0.07 205);
+  --ink: oklch(0.18 0.005 60); /* #111111 */
 
   /* semantic */
   --background: var(--cream);
@@ -88,49 +96,60 @@
     font-family: var(--font-body);
     -webkit-font-smoothing: antialiased;
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     font-weight: 500;
-    letter-spacing: 0.01em;
+    letter-spacing: 0;
   }
 }
 
-@utility font-display { font-family: var(--font-display); }
-@utility font-script { font-family: var(--font-script); letter-spacing: 0; }
+@utility font-display {
+  font-family: var(--font-display);
+}
+@utility font-script {
+  font-family: var(--font-script);
+  letter-spacing: 0;
+}
 
 @utility branch-divider {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  width: fit-content;
   color: var(--ink);
 }
 
 @utility paper-grain {
   background-image:
-    radial-gradient(at 20% 10%, color-mix(in oklab, var(--peach) 50%, transparent) 0, transparent 50%),
-    radial-gradient(at 80% 80%, color-mix(in oklab, var(--terracotta) 18%, transparent) 0, transparent 55%);
+    linear-gradient(90deg, color-mix(in oklab, var(--ink) 2%, transparent) 1px, transparent 1px),
+    linear-gradient(0deg, color-mix(in oklab, var(--ink) 2%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  background-position: center;
 }
 
 @keyframes marquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @utility animate-marquee {
   animation: marquee 38s linear infinite;
 }
 
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50%      { transform: translateY(-12px) rotate(2deg); }
-}
-@utility animate-float {
-  animation: float-slow 7s ease-in-out infinite;
-}
-
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @utility animate-fade-up {
   animation: fade-up 0.9s ease-out both;
