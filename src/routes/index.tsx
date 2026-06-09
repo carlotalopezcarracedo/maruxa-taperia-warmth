@@ -134,8 +134,8 @@ export function MaruxaHome() {
       <main>
         <Hero />
         <Marquee />
-        <PhotoRail />
         <Story />
+        <PhotoRail />
         <Carta />
         <Recommendations />
         <Gallery />
@@ -668,42 +668,61 @@ function Gallery() {
           </p>
         </div>
 
-        <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 md:auto-rows-[220px]">
-          <img
-            src={realInterior}
-            alt="Comedor real de Tapería Maruxa"
-            loading="lazy"
-            className="h-full min-h-64 w-full rounded-lg object-cover md:row-span-2"
-          />
-          <img
-            src={realBarra}
-            alt="Detalle de la barra de Tapería Maruxa"
-            loading="lazy"
-            className="h-full min-h-52 w-full rounded-lg object-cover md:col-span-2"
-          />
-          <img
+        <div className="mt-12 grid gap-4 lg:grid-cols-[minmax(0,1.12fr)_minmax(320px,0.88fr)]">
+          <figure className="group relative min-h-[380px] overflow-hidden rounded-lg border border-cream/12 bg-ink/35 shadow-2xl sm:min-h-[540px]">
+            <img
+              src={realComedor}
+              alt="Comedor real de Tapería Maruxa"
+              loading="lazy"
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/78 via-ink/16 to-transparent" />
+            <figcaption className="absolute inset-x-4 bottom-4 max-w-xl rounded-lg border border-cream/16 bg-ink/62 p-4 backdrop-blur sm:left-5 sm:right-auto sm:bottom-5 sm:p-5">
+              <p className="font-display text-2xl uppercase leading-none text-cream sm:text-3xl">
+                Comedor Maruxa
+              </p>
+              <p className="mt-2 text-sm leading-6 text-cream/76">
+                Luz cálida, papel vegetal y mesas listas para venir sin prisa.
+              </p>
+            </figcaption>
+          </figure>
+
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
+            <GalleryImage
+              src={realBarra}
+              alt="Detalle de la barra de Tapería Maruxa"
+              label="Barra"
+              note="Flores, lámparas y ese punto de casa que marca el local."
+              className="min-h-[250px] lg:min-h-[262px]"
+            />
+            <GalleryImage
+              src={realZamburinas}
+              alt="Zamburiñas de Tapería Maruxa"
+              label="Producto"
+              note="Platos reconocibles, sabrosos y pensados para compartir."
+              className="min-h-[250px] lg:min-h-[262px]"
+            />
+          </div>
+        </div>
+
+        <div className="mt-4 grid gap-4 sm:grid-cols-3">
+          <GalleryImage
             src={realPulpo}
             alt="Pulpo de Tapería Maruxa"
-            loading="lazy"
-            className="h-full min-h-52 w-full rounded-lg object-cover"
+            label="Pulpo"
+            className="min-h-[235px]"
           />
-          <img
-            src={realZamburinas}
-            alt="Zamburiñas de Tapería Maruxa"
-            loading="lazy"
-            className="h-full min-h-52 w-full rounded-lg object-cover"
+          <GalleryImage
+            src={realInterior}
+            alt="Rincón del comedor de Tapería Maruxa"
+            label="Rincones"
+            className="min-h-[235px]"
           />
-          <img
-            src={realComedor}
-            alt="Vista amplia del comedor de Tapería Maruxa"
-            loading="lazy"
-            className="h-full min-h-52 w-full rounded-lg object-cover md:col-span-2"
-          />
-          <img
+          <GalleryImage
             src={realMejillones}
             alt="Mejillones de Tapería Maruxa"
-            loading="lazy"
-            className="h-full min-h-52 w-full rounded-lg object-cover"
+            label="Raciones"
+            className="min-h-[235px]"
           />
         </div>
 
@@ -719,6 +738,38 @@ function Gallery() {
         </div>
       </div>
     </section>
+  );
+}
+
+function GalleryImage({
+  src,
+  alt,
+  label,
+  note,
+  className = "",
+}: {
+  src: string;
+  alt: string;
+  label: string;
+  note?: string;
+  className?: string;
+}) {
+  return (
+    <figure
+      className={`group relative overflow-hidden rounded-lg border border-cream/12 bg-ink/35 shadow-lg ${className}`}
+    >
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/75 via-ink/8 to-transparent" />
+      <figcaption className="absolute inset-x-3 bottom-3 rounded-lg bg-ink/62 px-3 py-3 backdrop-blur">
+        <p className="font-display text-xl uppercase leading-none text-cream">{label}</p>
+        {note && <p className="mt-1 text-sm leading-5 text-cream/72">{note}</p>}
+      </figcaption>
+    </figure>
   );
 }
 
