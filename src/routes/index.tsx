@@ -907,52 +907,73 @@ function Gallery() {
   return (
     <section
       id="galeria"
-      className="scroll-mt-20 overflow-hidden bg-background py-20 text-ink paper-grain md:py-28"
+      className="scroll-mt-20 overflow-hidden bg-[color:var(--peach)] py-20 text-ink paper-grain md:py-28"
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="mb-12 grid gap-6 lg:grid-cols-[0.68fr_0.32fr] lg:items-end">
-          <div>
-            <p className="font-script text-2xl text-terracotta">galería</p>
+        <div className="grid gap-8 lg:grid-cols-[0.46fr_0.54fr] lg:items-end">
+          <div className="max-w-2xl">
+            <p className="font-script text-2xl text-terracotta-deep">galería</p>
             <BranchDivider className="mt-3 text-ink" />
             <h2 className="mt-5 max-w-3xl font-display text-4xl leading-tight md:text-6xl">
               Ambiente Maruxa
             </h2>
+            <p className="mt-6 max-w-xl leading-7 text-ink/70">
+              Un comedor cálido, una barra con detalle y rincones pensados para alargar la
+              sobremesa.
+            </p>
           </div>
-          <p className="max-w-md leading-7 text-ink/66 lg:justify-self-end">
-            Un comedor cálido, una barra con detalle y rincones pensados para comer sin prisa.
-          </p>
+
+          <div className="grid gap-3 border-y border-ink/12 py-5 sm:grid-cols-3">
+            <div>
+              <p className="font-display text-2xl uppercase leading-none">Comedor</p>
+              <p className="mt-2 text-sm leading-6 text-ink/62">Luz suave y mesas preparadas.</p>
+            </div>
+            <div>
+              <p className="font-display text-2xl uppercase leading-none">Barra</p>
+              <p className="mt-2 text-sm leading-6 text-ink/62">Flores, copas y vida de tapería.</p>
+            </div>
+            <div>
+              <p className="font-display text-2xl uppercase leading-none">Rincones</p>
+              <p className="mt-2 text-sm leading-6 text-ink/62">Texturas cálidas del local.</p>
+            </div>
+          </div>
         </div>
 
-        <div className="grid gap-5 lg:grid-cols-[minmax(0,1.05fr)_minmax(320px,0.95fr)] lg:items-start">
-          <figure>
-            <div className="group aspect-[5/4] overflow-hidden rounded-lg bg-muted shadow-2xl sm:aspect-[16/11] lg:aspect-[4/3]">
-              <img
-                src={realComedor}
-                alt="Comedor real de Tapería Maruxa"
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-            </div>
-            <figcaption className="mt-4 border-l-4 border-terracotta bg-cream px-4 py-3">
-              <p className="font-display text-xl uppercase text-ink">Comedor</p>
-              <p className="mt-1 text-sm leading-6 text-ink/66">
-                Luz cálida, papel vegetal y mesas listas para venir sin prisa.
-              </p>
-            </figcaption>
-          </figure>
+        <div className="mt-12 grid gap-5 lg:grid-cols-[minmax(0,0.68fr)_minmax(300px,0.32fr)] lg:items-start">
+          <div>
+            <figure className="group">
+              <div className="aspect-[5/4] overflow-hidden rounded-lg border-[10px] border-cream bg-muted shadow-2xl sm:aspect-[16/9]">
+                <img
+                  src={realComedor}
+                  alt="Comedor real de Tapería Maruxa"
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+              </div>
+              <figcaption className="mt-5 grid gap-3 border-t border-ink/14 pt-4 sm:grid-cols-[0.28fr_0.72fr]">
+                <p className="font-display text-3xl uppercase leading-none">Comedor</p>
+                <p className="max-w-xl leading-7 text-ink/68">
+                  Papel vegetal, sillas mezcladas y una luz muy de casa: el lado más reconocible de
+                  Maruxa.
+                </p>
+              </figcaption>
+            </figure>
+          </div>
 
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-1">
             <AmbientPhoto
               src={realBarra}
               alt="Detalle de la barra de Tapería Maruxa"
               title="Barra"
-              copy="Flores, lámparas y pequeños detalles del día a día."
+              copy="Detalles de barra, cristal y flores secas."
+              number="01"
             />
             <AmbientPhoto
               src={realInterior}
               alt="Rincón del comedor de Tapería Maruxa"
               title="Rincones"
-              copy="Texturas suaves y tonos cálidos en el interior del local."
+              copy="El papel, la luz y las mesas como hilo visual."
+              number="02"
             />
           </div>
         </div>
@@ -980,15 +1001,17 @@ function AmbientPhoto({
   alt,
   title,
   copy,
+  number,
 }: {
   src: string;
   alt: string;
   title: string;
   copy: string;
+  number: string;
 }) {
   return (
-    <figure>
-      <div className="group aspect-[4/3] overflow-hidden rounded-lg bg-muted shadow-lg">
+    <figure className="group">
+      <div className="aspect-[4/3] overflow-hidden rounded-lg border-[8px] border-cream/90 bg-muted shadow-xl">
         <img
           src={src}
           alt={alt}
@@ -996,12 +1019,12 @@ function AmbientPhoto({
           className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
       </div>
-      <figcaption className="mt-3 flex gap-3 border-t border-ink/10 pt-3">
-        <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-terracotta" />
+      <figcaption className="mt-3 flex items-start justify-between gap-4 border-b border-ink/12 pb-4">
         <div>
-          <p className="font-display text-lg uppercase leading-none text-ink">{title}</p>
+          <p className="font-display text-2xl uppercase leading-none text-ink">{title}</p>
           <p className="mt-1 text-sm leading-6 text-ink/62">{copy}</p>
         </div>
+        <span className="font-script text-2xl leading-none text-terracotta-deep">{number}</span>
       </figcaption>
     </figure>
   );
