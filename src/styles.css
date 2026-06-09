@@ -141,6 +141,18 @@
   animation: marquee 38s linear infinite;
 }
 
+@keyframes photo-rail {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+@utility animate-photo-rail {
+  animation: photo-rail 42s linear infinite;
+}
+
 @keyframes fade-up {
   from {
     opacity: 0;
@@ -153,4 +165,12 @@
 }
 @utility animate-fade-up {
   animation: fade-up 0.9s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-photo-rail,
+  .animate-fade-up {
+    animation: none;
+  }
 }

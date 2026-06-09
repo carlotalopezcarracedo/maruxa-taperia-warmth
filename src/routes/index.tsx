@@ -15,18 +15,12 @@ import {
   Wine,
   UtensilsCrossed,
 } from "lucide-react";
-import heroImg from "@/assets/hero-taperia.jpg";
-import terrazaImg from "@/assets/terraza.jpg";
-import storyImg from "@/assets/story-share.jpg";
-import dish1 from "@/assets/dish-1.jpg";
-import dish2 from "@/assets/dish-2.jpg";
-import dish3 from "@/assets/dish-3.jpg";
-import dish4 from "@/assets/dish-4.jpg";
-import gal1 from "@/assets/gallery-1.jpg";
-import gal2 from "@/assets/gallery-2.jpg";
-import gal3 from "@/assets/gallery-3.jpg";
-import gal4 from "@/assets/gallery-4.jpg";
-import gal5 from "@/assets/gallery-5.jpg";
+import realBarra from "@/assets/real/maruxa-barra.jpg";
+import realComedor from "@/assets/real/maruxa-comedor.jpg";
+import realInterior from "@/assets/real/maruxa-interior.jpg";
+import realMejillones from "@/assets/real/maruxa-mejillones.jpg";
+import realPulpo from "@/assets/real/maruxa-pulpo.jpg";
+import realZamburinas from "@/assets/real/maruxa-zamburinas.jpg";
 import { BranchDivider } from "@/components/maruxa/BranchDivider";
 
 const NAME = "Tapería Maruxa";
@@ -43,6 +37,39 @@ const PRICE_RANGE = "10 - 20 €";
 const RATING = 4.5;
 const REVIEWS = 312;
 
+const REAL_PHOTOS = [
+  {
+    src: realInterior,
+    alt: "Comedor real de Tapería Maruxa con papel vegetal y luz cálida",
+    label: "Comedor",
+  },
+  {
+    src: realBarra,
+    alt: "Detalle de la barra de Tapería Maruxa con flores y lámparas",
+    label: "Barra",
+  },
+  {
+    src: realZamburinas,
+    alt: "Zamburiñas a la plancha de Tapería Maruxa",
+    label: "Zamburiñas",
+  },
+  {
+    src: realPulpo,
+    alt: "Pulpo con pimentón servido en Tapería Maruxa",
+    label: "Pulpo",
+  },
+  {
+    src: realMejillones,
+    alt: "Mejillones preparados en Tapería Maruxa",
+    label: "Producto",
+  },
+  {
+    src: realComedor,
+    alt: "Vista amplia del comedor de Tapería Maruxa",
+    label: "Ambiente",
+  },
+];
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -58,7 +85,7 @@ export const Route = createFileRoute("/")({
         content: "Tapas, raciones y momentos para compartir en el corazón de Nigrán.",
       },
       { property: "og:type", content: "restaurant.restaurant" },
-      { property: "og:image", content: heroImg },
+      { property: "og:image", content: realComedor },
       { property: "og:url", content: "/" },
     ],
     links: [{ rel: "canonical", href: "/" }],
@@ -71,7 +98,7 @@ export const Route = createFileRoute("/")({
           name: NAME,
           servesCuisine: ["Tapas", "Gallega", "Española"],
           priceRange: "€€",
-          image: heroImg,
+          image: realComedor,
           telephone: "+34623501651",
           url: "/",
           address: {
@@ -102,6 +129,7 @@ export function MaruxaHome() {
       <main>
         <Hero />
         <Marquee />
+        <PhotoRail />
         <Story />
         <Carta />
         <Recommendations />
@@ -202,17 +230,17 @@ function Hero() {
     <section id="inicio" className="relative scroll-mt-20 overflow-hidden bg-cocoa text-cream">
       <div className="absolute inset-0">
         <img
-          src={heroImg}
-          alt="Mesa con tapas y vino en Tapería Maruxa"
+          src={realComedor}
+          alt="Comedor real de Tapería Maruxa"
           className="h-full w-full object-cover object-center"
-          width={1792}
-          height={1216}
+          width={1200}
+          height={600}
         />
-        <div className="absolute inset-0 bg-cocoa/55" />
-        <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-cocoa/25 to-ink/78" />
+        <div className="absolute inset-0 bg-cocoa/62" />
+        <div className="absolute inset-0 bg-gradient-to-br from-ink/45 via-cocoa/28 to-wine/60" />
       </div>
 
-      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-end lg:px-8 lg:py-24">
+      <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-[minmax(0,1fr)_460px] lg:items-center lg:px-8 lg:py-24">
         <div className="max-w-3xl">
           <div className="inline-flex max-w-full items-center gap-2 rounded-full border border-cream/25 bg-cream/12 px-4 py-1.5 text-xs uppercase text-cream backdrop-blur">
             <MapPin size={13} className="shrink-0 text-[color:var(--peach-deep)]" />
@@ -270,7 +298,56 @@ function Hero() {
           </div>
         </div>
 
-        <aside className="hidden rounded-lg border border-cream/18 bg-cream p-6 text-ink shadow-2xl md:block lg:justify-self-end">
+        <HeroPhotoStack />
+      </div>
+
+      <div className="relative border-y border-cream/10 bg-ink text-cream/90">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-cream/10 px-0 sm:grid-cols-4 lg:px-8">
+          <Feature icon={<Sun size={17} />} label="Terraza" />
+          <Feature icon={<Wine size={17} />} label="Comedor privado" />
+          <Feature icon={<Baby size={17} />} label="Tronas" />
+          <Feature icon={<UtensilsCrossed size={17} />} label={`${PRICE_RANGE} · pers.`} />
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function HeroPhotoStack() {
+  return (
+    <aside className="hidden lg:block">
+      <div className="relative h-[520px]">
+        <div className="absolute right-0 top-0 h-72 w-72 overflow-hidden rounded-lg border border-cream/18 shadow-2xl">
+          <img
+            src={realInterior}
+            alt="Comedor real de Tapería Maruxa"
+            className="h-full w-full object-cover"
+            width={900}
+            height={1200}
+          />
+        </div>
+
+        <div className="absolute bottom-10 left-0 h-64 w-52 overflow-hidden rounded-lg border border-cream/18 shadow-2xl">
+          <img
+            src={realZamburinas}
+            alt="Zamburiñas servidas en Tapería Maruxa"
+            className="h-full w-full object-cover"
+            width={900}
+            height={1200}
+          />
+        </div>
+
+        <div className="absolute bottom-0 right-8 h-48 w-64 overflow-hidden rounded-lg border border-cream/18 shadow-2xl">
+          <img
+            src={realBarra}
+            alt="Detalle de la barra de Tapería Maruxa"
+            className="h-full w-full object-cover"
+            width={900}
+            height={1200}
+          />
+        </div>
+
+        <div className="absolute left-8 top-20 max-w-[270px] rounded-lg border border-cream/18 bg-cream p-5 text-ink shadow-2xl">
           <div className="flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-ink font-display text-lg text-cream">
               G
@@ -293,30 +370,20 @@ function Hero() {
               />
             ))}
           </div>
-          <div className="my-5 h-px bg-ink/10" />
-          <p className="font-script text-xl leading-snug text-terracotta">
+          <p className="mt-4 font-script text-xl leading-snug text-terracotta">
             "Sitio con encanto, tapas ricas y trato cercano."
           </p>
           <a
             href={MAPS_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-5 inline-flex items-center gap-1.5 text-sm uppercase text-ink transition-colors hover:text-terracotta"
+            className="mt-4 inline-flex items-center gap-1.5 text-sm uppercase text-ink transition-colors hover:text-terracotta"
           >
             Ver en Google Maps <ArrowRight size={14} />
           </a>
-        </aside>
-      </div>
-
-      <div className="relative border-y border-cream/10 bg-ink text-cream/90">
-        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-px bg-cream/10 px-0 sm:grid-cols-4 lg:px-8">
-          <Feature icon={<Sun size={17} />} label="Terraza" />
-          <Feature icon={<Wine size={17} />} label="Comedor privado" />
-          <Feature icon={<Baby size={17} />} label="Tronas" />
-          <Feature icon={<UtensilsCrossed size={17} />} label={`${PRICE_RANGE} · pers.`} />
         </div>
       </div>
-    </section>
+    </aside>
   );
 }
 
@@ -326,6 +393,33 @@ function Feature({ icon, label }: { icon: ReactNode; label: string }) {
       <span className="shrink-0 text-[color:var(--olive)]">{icon}</span>
       <span className="text-[0.7rem] uppercase leading-tight sm:text-xs">{label}</span>
     </div>
+  );
+}
+
+function PhotoRail() {
+  const rail = [...REAL_PHOTOS, ...REAL_PHOTOS];
+
+  return (
+    <section className="overflow-hidden border-y border-ink/10 bg-cream py-5">
+      <div className="flex w-max animate-photo-rail gap-4 px-4">
+        {rail.map((photo, i) => (
+          <figure
+            key={`${photo.label}-${i}`}
+            className="group relative h-56 w-72 shrink-0 overflow-hidden rounded-lg bg-muted shadow-sm sm:h-64 sm:w-96"
+          >
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <figcaption className="absolute inset-x-3 bottom-3 rounded-full bg-ink/72 px-4 py-2 text-center text-xs uppercase text-cream backdrop-blur">
+              {photo.label}
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </section>
   );
 }
 
@@ -363,17 +457,17 @@ function Story() {
         <figure className="order-1 lg:order-2">
           <div className="aspect-[4/5] overflow-hidden rounded-lg shadow-2xl">
             <img
-              src={terrazaImg}
-              alt="Terraza de Tapería Maruxa en Nigrán"
+              src={realInterior}
+              alt="Comedor real de Tapería Maruxa en Nigrán"
               loading="lazy"
-              width={1024}
-              height={1280}
+              width={900}
+              height={1200}
               className="h-full w-full object-cover"
             />
           </div>
           <figcaption className="mt-4 flex flex-col gap-3 border-l-4 border-terracotta bg-cream px-4 py-3 text-sm text-ink/70 sm:flex-row sm:items-center sm:justify-between">
             <span className="font-display uppercase text-ink">Terraza y comedor privado</span>
-            <span>Un sitio fácil para venir con calma, en pareja o en grupo.</span>
+            <span>Un comedor cálido, reconocible y pensado para sobremesas tranquilas.</span>
           </figcaption>
         </figure>
 
@@ -507,10 +601,10 @@ function Carta() {
 
 function Recommendations() {
   const items = [
-    { img: dish2, name: "Pulpo a feira", note: "Clásico gallego con pimentón y aceite." },
-    { img: dish3, name: "Croquetas de la casa", note: "Crujientes fuera, cremosas dentro." },
-    { img: dish4, name: "Tabla de ibéricos", note: "Jamón, queso y pan. Sencillez bien hecha." },
-    { img: dish1, name: "Surtido de tapas", note: "Lo mejor de la barra en una sola tabla." },
+    { img: realPulpo, name: "Pulpo a feira", note: "Clásico gallego con pimentón y aceite." },
+    { img: realZamburinas, name: "Zamburiñas", note: "Plancha, producto y ese punto de costa." },
+    { img: realMejillones, name: "Mejillones", note: "Una ración para empezar compartiendo." },
+    { img: realBarra, name: "Barra Maruxa", note: "Detalles del local que hacen ambiente." },
   ];
 
   return (
@@ -574,38 +668,38 @@ function Gallery() {
 
         <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-4 md:auto-rows-[220px]">
           <img
-            src={gal1}
-            alt="Barra de la tapería"
+            src={realInterior}
+            alt="Comedor real de Tapería Maruxa"
             loading="lazy"
             className="h-full min-h-64 w-full rounded-lg object-cover md:row-span-2"
           />
           <img
-            src={storyImg}
-            alt="Compartiendo tapas"
+            src={realBarra}
+            alt="Detalle de la barra de Tapería Maruxa"
             loading="lazy"
             className="h-full min-h-52 w-full rounded-lg object-cover md:col-span-2"
           />
           <img
-            src={gal3}
-            alt="Pimientos de padrón"
+            src={realPulpo}
+            alt="Pulpo de Tapería Maruxa"
             loading="lazy"
             className="h-full min-h-52 w-full rounded-lg object-cover"
           />
           <img
-            src={gal4}
-            alt="Copa de vino"
+            src={realZamburinas}
+            alt="Zamburiñas de Tapería Maruxa"
             loading="lazy"
             className="h-full min-h-52 w-full rounded-lg object-cover"
           />
           <img
-            src={gal5}
-            alt="Empanada gallega"
+            src={realComedor}
+            alt="Vista amplia del comedor de Tapería Maruxa"
             loading="lazy"
             className="h-full min-h-52 w-full rounded-lg object-cover md:col-span-2"
           />
           <img
-            src={gal2}
-            alt="Brindis entre amigos"
+            src={realMejillones}
+            alt="Mejillones de Tapería Maruxa"
             loading="lazy"
             className="h-full min-h-52 w-full rounded-lg object-cover"
           />
@@ -634,7 +728,7 @@ function Reservas() {
     >
       <div className="absolute inset-0">
         <img
-          src={storyImg}
+          src={realBarra}
           alt=""
           aria-hidden="true"
           loading="lazy"
